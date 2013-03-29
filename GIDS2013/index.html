@@ -1,538 +1,505 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title></title>
-		<meta charset="utf-8" />
-		<link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
-		<link href="styles/jquery.ratings.css" rel="stylesheet" />
-		<link href="styles/main.css" rel="stylesheet" />
+<head>
+	<title></title>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" href="kendo/styles/kendo.mobile.all.min.css" />
+	<link rel="stylesheet" href="styles/gids.theme.css" />
+	<link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/jquery.ratings.css" />
 
-		<script src="cordova.js"></script>
-		<script src="kendo/js/jquery.min.js"></script>
-		<script src="kendo/js/kendo.mobile.min.js"></script>
-		<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-		<script src="scripts/jquery.ratings.js"></script>
-		<script src="scripts/default.js"></script>
-	</head>
-	<body>
-		<!--Layouts for the application -->
-
-		<div data-role="view" id="home" data-title="PUG Meet" data-layout="home-layout">
-			<div data-role="content" id="home-content">
-				<div id="home-header">
-				</div>
-				<div id="tile-list">
-					<div class="tile">
-						<a href="#myagenda">
-							<img src="dicons/fav_256.png" class="tile-image" />
-							My Agenda
-						</a>
-					</div>
-
-					<div class="tile">
-						<a href="#sessions">
-							<img src="dicons/sessions_256.png" class="tile-image" />
-							Sessions
-						</a>
-					</div>
-					<div class="tile">
-						<a href="#speakers">
-							<img src="dicons/exchange_256.png" class="tile-image" />
-							Speakers
-						</a>
-					</div>
-
-					<div class="tile">
-						<a href="#tweetView">
-							<img src="dicons/social_256.png" class="tile-image" />
-							Twitter
-						</a>
-					</div>
-
-					<div class="tile">
-						<a href="#meView">
-							<img src="dicons/settings_256.png" class="tile-image" />
-							Resources
-						</a>
-					</div>
-					<div class="tile">
-						<a href="#sponsors">
-							<img src="dicons/sponsors_256.png" class="tile-image" />
-							Sponsors
-						</a>
-					</div>
-				</div>
-			</div>
+	<script src="cordova.js"></script>
+	<script src="kendo/js/jquery.min.js"></script>
+	<script src="kendo/js/kendo.mobile.min.js"></script>
+	<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script src="scripts/jquery.ratings.js"></script>
+	<script src="scripts/default.js"></script>
+</head>
+<body>
+    
+	<!-- #################################################################### -->
+    <!-- Application Views ################################################## -->
+    
+    
+    <!-- ######################### -->
+    <!-- Home View ############### -->
+    
+    <div data-role="view" id="home" data-title="GIDS 2013" data-layout="home-layout">
+		<div data-role="content" id="home-content">
+            <div id="logo"></div>
+            <p>Join GIDS 2013 edition for cutting-edge content that will squarely put you ahead of the pack.</p>
+			<ul data-role="listview" data-style="inset">
+                <li data-icon="grid"><a href="#sessions">Sessions</a></li>
+                <li data-icon="contacts"><a href="#speakers">Speakers</a></li>
+                <li data-icon="place"><a href="#map">Map</a></li>
+            </ul>
 		</div>
+	</div>
+    
 
-		<div data-role="layout" data-id="mobile-tabstrip">
-			<header data-role="header">
-				<div data-role="navbar">
-					<a data-role="backbutton" data-align="left">Back</a>
-					<span data-role="view-title"></span>
-				</div>
-			</header>
+    <!-- ######################### -->
+    <!-- Sessions Main View ###### User can select sessions by different options from here  -->
 
-			<div data-role="footer">
-				<div data-role="tabstrip">
-					<a href="#home" data-icon="home">Home</a>
-					<a href="#tweetView" data-icon="share">Tweets</a>
-					<a href="#sessions" data-icon="action">Sessions</a>
-					<a href="#speakers" data-icon="contacts">Speakers</a>
-					<a href="#meView" data-icon="favorites">Me</a>
-				</div>
-			</div>
+	<div data-role="view" id="sessions" data-title="Sessions" data-layout="mobile-tabstrip">
+		<div data-role="content" id="home-contents">
+            <ul data-role="listview" data-style="inset">
+                <li data-icon="grid"><a href="#allsession">All Sessions</a></li>
+                <li data-icon="grid"><a href="#tracksession">By Tracks</a></li>
+                <li data-icon="place"><a href="#venuesession">By Venue</a></li>
+                <li data-icon="contacts"><a href="#sessionbyspeaker">By Speaker</a></li>
+            </ul>
 		</div>
-
-		<div data-role="layout" data-id="mobile-home">
-			<header data-role="header">
-				<div data-role="navbar">
-
-					<span data-role="view-title"></span>
-				</div>
-			</header>
-		</div>
-
-		<!--Layouts for the Detail Pages in the application -->
-		<div data-role="layout" data-id="mobile-tabstrip-addtofav">
-			<header data-role="header">
-				<div data-role="navbar">
-					<a data-role="backbutton" data-align="left">Back</a>
-					<a  class="button" id="saveButton" data-role="button" data-align="right" data-icon="add"  ></a>
-					<span data-role="view-title"></span>
-				</div>
-			</header>
-
-			<div data-role="footer">
-				<div data-role="tabstrip">
-					<a href="#home" data-icon="home">Home</a>
-					<a href="#tweetView" data-icon="share">Tweets</a>
-					<a href="#sessions" data-icon="action">Sessions</a>
-					<a href="#speakers" data-icon="contacts">Speakers</a>
-					<a href="#meView" data-icon="favorites">Me</a>
-				</div>
-			</div>
-		</div>
-
-		<!-- This view will display Tweets -->
-
-		<div data-role="view" id="tweetView" data-title="Tweets" data-show="showTweets" >
-
-			<ul id="tweetList"
-				data-source="tweets"
-				data-endlessScroll="true" 
-				data-template="tweetTemplate"
-				data-role="listview"
-				data-style="inset"
-				>
-			</ul>
-
-		</div>
-
-		<!-- This view will display Speakers -->
-
-		<div data-role="view" id="speakers" data-title="Speakers" data-show="getSpeakers" class="listsbg">
-			<div>
-				<ul id="speakersView"
-					data-template="speakersTemplate"
-					data-source="speakerData"
-					data-endlessScroll="true"
-					data-role="listview"
-					data-style="inset">
-				</ul>
-			</div>
-
-		</div>
-
-		<!-- This view will help to browse session by speaker -->
-
-		<div data-role="view" id="sessionbyspeaker" data-title="Speakers" data-show="getSpeakers" class="listsbg">
-			<div>
-				<ul id="speakersView"
-					data-template="speakersbySessionTemplate"
-					data-source="speakerData"
-					data-endlessScroll="true"
-					data-role="listview"
-					data-style="inset"
-					data-click="displaysessionsbyspeaker">
-				</ul>
-			</div>
-
-		</div>
-
-		<!-- This view will display Agendas added to fav list -->
-
-		<div data-role="view" id="myagenda" data-title="Agenda" class="listsbg" data-show="showMe">
-			<div>
-				<ul id="myAgendaSessionView">
-
-				</ul>
-
-			</div>
-		</div>
-
-		<!-- This view will display Sessions Main view. User can select sessions by different options from here  -->
-
-		<div data-role="view" id="sessions" data-title="Sessions" data-layout="mobile-tabstrip">
-			<div data-role="content" id="home-contents">
-
-				<div id="tile-lists">
-					<div class="tile">
-						<a href="#allsession">
-							<img src="dicons/search_256.png" class="tile-image" /><br/>
-							All
-						</a>
-					</div>
-
-					<div class="tile" id="btc" >
-						<a href="#tracksession">
-							<img src="dicons/sessions_256.png" class="tile-image" /><br/>
-							By Tracks
-						</a>
-					</div>
-					<div class="tile">
-						<a href="#venuesession">
-							<img src="dicons/exchange_256.png" class="tile-image" /><br/>
-							By Venue
-						</a>
-					</div>
-
-					<div class="tile" >
-						<a href="#sessionbyspeaker">
-							<img src="dicons/fav_256.png" class="tile-image" /><br/>
-							By Speaker
-						</a>
-					</div>
-
-				</div>
-			</div>
-		</div>
-
-		<!-- ********************************************************************************* -->
-		<!-- ************************************* About ************************************* -->
-		<!-- ********************************************************************************* -->
-		<div data-role="view" id="about" data-title="About">
-			<div data-role="content" class="container">
-				<div id="iceniumLogo"></div>
-				<div id="about-text">
-					Telerik is a market-leading provider of end-to-end solutions for
-					<a href="http://www.telerik.com/developer-productivity-tools.aspx" data-rel="external">application development</a>,
-					<a href="http://www.telerik.com/automated-testing-tools.aspx" data-rel="external">automated testing</a>
-					<a href="http://www.telerik.com/team-productivity-tools.aspx" data-rel="external">agile project management</a>,
-					<a data-rel="external" href="http://www.sitefinity.com/">content management</a>and
-					<a data-rel="external" href="http://www.icenium.com/">cloud-based cross-platform mobile development.</a>
-					Telerik’s mission is to make software development easier and more enjoyable by providing to technical and business professionals software tools, which help them maximize their productivity and "deliver more than expected” every day. <br />This mobile app was built with <img id="icnlogo" src="speakerimages/iclogoblack9.png"/>
-					and <img id="kedouimlogo" src="speakerimages/kendouilogo1.png"/> Kendo UI Mobile<br /><br />
-					<a href="https://www.icenium.com/" data-rel="external">Icenium</a> is the industry’s first Integrated Cloud Environment (ICE)
-					which eliminates the complexity associated with cross-platform mobile
-					development for iOS and Android. Icenium lets
-					mobile and web developers use web languages they already know – HTML5,
-					CSS3 and JavaScript – to build apps that run natively on devices, and
-					which can be distributed through the Apple App Store and the Google Play Store <br /><br />
-					<a href="https://www.kendoui.com/" data-rel="external"> Kendo UI Mobile </a>
-					is Telerik’s toolset of easy-to-use jQuery mobile widgets and built-in rich components for fast mobile application development. Kendo UI Mobile empowers developers to build native-like mobile apps for iPhone, Android and Blackberry, and deliver unmatched user experience without any extra coding.
-
-				</div>
-			</div>
-		</div>
-
-		<!-- This view will display Me View. User can navigate to fav session , fav speaker and my setting views from here  -->
-		<div data-role="view" id="meView" data-title="Personal" data-layout="mobile-tabstrip">
-			<div data-role="content" id="home-contents">
-
-				<div id="tile-lists">
-					<div class="tile">
-						<a href="#myagenda">
-							<img src="dicons/fav_256.png" class="tile-image" /><br/>
-							My Agenda
-						</a>
-					</div>
-
-					<div class="tile" >
-						<a href="#settingsView">
-							<img src="dicons/ico_Settings.png" class="tile-image" /><br/>
-							My Settings
-						</a>
-					</div>
-					<div class="tile" >
-						<a href="#about">
-							<img src="dicons/social_256.png" class="tile-image" /><br/>
-							About
-						</a>
-					</div>
-					<div class="tile">
-						<a href="#map">
-							<img src="dicons/map_256.png" class="tile-image" /><br/>
-							Map
-						</a>
-					</div>
-
-				</div>
-			</div>
-		</div>
-
-		<!-- This view is Setting View -->
-
-		<div data-role="view" id="settingsView" data-title="Setting" data-show="checkPersonalSettings">
-
-			<table>
-				<tr>
-					<td>Name</td>
-					<td>
-						<input id="name"/>
-					</td>
-				</tr>
-				<tr>
-					<td>Email</td>
-					<td>
-						<input id="email"/>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Anonymous
-					</td>
-					<td>
-						<input type="checkbox" id="isAnonymous" data-role="switch" />
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<a id="savePersonalDetails" data-click="savePersonalDetailsfn" data-role="button">Save</a>
-					</td>
-				</tr>
-			</table>
-
-		</div>
-
-		<!-- This view will show all sessions with no filter applied -->
-		<div data-role="view" id="allsession" data-title="All" data-show="getAllSessions" class="listsbg">
-
-			<ul id="sessionsView"
-				data-source="allSessionData"
-				data-endlessScroll="true" 
-				data-template="sessionsTemplate"
-				data-role="listview"
-				data-style="inset">
-
-			</ul>
-
-		</div>
-
-		<!-- This view will show all tracks for the event. Clicking on any track will show sessions in that track. -->
-		<div data-role="view" id="tracksession" data-title="Tracks" class="listsbg">
-
-			<ul id="trackList"
-				data-source="trackData"
-				data-endlessScroll="true" 
-				data-template="trackTemplate"
-				data-role="listview"
-				data-style="inset"
-				data-click="tracksListViewClick">
-
-			</ul>
-
-		</div>
-
-		<!-- This view will show all venues for the event. Clicking on any venue will show sessions in that venue. -->
-		<div data-role="view" id="venuesession" data-title="Venue" class="listsbg">
-
-			<ul id="venueList"
-				data-source="venueData"
-				data-endlessScroll="true" 
-				data-template="venueTemplate"
-				data-role="listview"
-				data-style="inset" 
-				data-click="venueListViewClick">
-
-			</ul>
-
-		</div>
-
-		<!-- This view shows the speaker profile information. -->
-		<div data-role="view" 
-			 id="speakerDetails"
-			 data-show="speakerDetailsShow" 
-			 data-title="Speaker Details"
-			 class="listsbgs"
-			 >
-		</div>
-
-		<!-- This view shows the sessions in a particular track. -->
-
-		<div data-role="view" id="sessionsinTrack" data-title="Tracks" class="listsbg" >
-
-			<ul id="sessioninTrackList">
-			</ul>
-
-		</div>
-
-		<!-- This view shows the sessions in a particular venue. -->
-
-		<div data-role="view" id="sessionsAtVenue" data-title="Venue" class="listsbg" >
-
-			<ul id="sessioninVenueList">
-
-			</ul>
-		</div>
-
-		<!-- This view shows the sessions of a speaker -->
-
-		<div data-role="view" id="sessionsOfSpeaker" data-title="Speakers" class="listsbg" >
-
-			<ul id="sessionsOfSpeakerList">
-
-			</ul>
-		</div>
-
-		<!-- This View is Review view for the Session and Speaker -->
-
-		<div data-role="view" id ="reviewSessionView" data-title="Review" class="listsbgs">
-
-			<div id="sessionRName">
-				Review Comment
-			</div>
-			<textarea id="txtReview"  rows="8"></textarea>
-			<br/>
-			<div id="ratingSession"></div>
-			<h3>
-				Your Rating: <span id="ratingSession-rating">not set</span>
-			</h3>
-
-			<br/><br/>
-			<a data-click="submitReview" data-role="button" data-align="center">Submit</a>
-		</div>
-
-		<!-- This View is Session Details View -->
-
-		<div data-role="view" class="listsbgs" id="sessionDetails" data-show="sessionDetailsShow" data-layout="mobile-tabstrip-addtofav">
-
-		</div>
-
-		<!-- ********************************************************************************* -->
-		<!-- ************************************** Map ************************************** -->
-		<!-- ********************************************************************************* -->
-		<div data-role="view" id="map" data-title="Map" data-init="initMap" data-show="showMap" data-hide="hideMap" data-stretch="true">
-
-			<div data-role="content" class="container">
-				<div id="map_canvas" style="width: 100%; height: 100%; position: absolute;"></div>
-				<img src="" /><img src="" />
-			</div>
-		</div>
-
-		<script id="tweetTemplate" type="text/x-kendo-template">
-			<div class="tweets">
-				<img class="pullImage" src=#= profile_image_url# alt="#= from_user #" />#= text #        
-				<div class="metadata">
-					<a class="sublink" target="_blank" href="http://twitter.com/\\#!/#= from_user #/status/#= id_str #" rel="nofollow">#= kendo.toString(new Date(Date.parse(created_at)), "dd MMM HH:mm") #</a>
-					<a class="sublink" href="http://twitter.com/#= from_user #" rel="nofollow">#= from_user #</a>
-				</div>
-			</div>
-		</script>
-
-		<script type= "text/x-kendo-template" id="speakersTemplate">
-			<div>
-				<a href="\#speakerDetails?uid=#= UserProfile.UserId #" class="km-listview-link" data-role="listview-link"> #= UserProfile.FirstName # #= UserProfile.LastName # </a>
-			</div>    
-		</script>
-
-		<script type= "text/x-kendo-template" id="speakersbySessionTemplate">
-			<a href="\#sessionsOfSpeaker?uid=#= UserProfile.UserId #" class="km-listview-link" data-role="listview-link"> #= UserProfile.FirstName # #= UserProfile.LastName #</a>        
-		</script>
-
-		<script type= "text/x-kendo-template" id="speakerDetailsTemplate">      
+	</div>
+    
+    <!-- Sessions >> Speakers View -->
+	<div data-role="view" id="sessionbyspeaker" data-title="Speakers" data-show="getSpeakers" class="listsbg">
+		<ul id="speakersView"
+			data-template="speakersbySessionTemplate"
+			data-source="speakerData"
+			data-endlessScroll="true"
+			data-role="listview"
+			data-style="inset"
+			data-click="displaysessionsbyspeaker">
+		</ul>
+	</div>
+    
+    <script type= "text/x-kendo-template" id="speakersbySessionTemplate">
+		<a href="\#sessionsOfSpeaker?uid=#= UserProfile.UserId #" class="km-listview-link" data-role="listview-link"> #= UserProfile.FirstName # #= UserProfile.LastName #</a>        
+	</script>
             
-			<div>
-				<div id="sessionTitle"> #= FirstName # #= LastName #  <br/>
-					#for (var i = 0;i < UserURLs.results.length;i++) {
-						if (UserURLs.results[i].SNTypeID===1) {#
-							<img class="sponsorThumbnail" src= #=UserURLs.results[i].URL#
-								 alt=#= FirstName# /> <br/>
-						#}
-						else {#
-						# }
-					}# </div>
-				<div id="sessionSName"> 
-					
-					#= FirstName#
-					works for  #= Company.CompanyName # as 
-					#=Designation.DesignationName#
-					and can be contacted at #=Email# <br/><br/>             
-					#= FirstName# lives in #= City.CityName # , #= Country.CountryName #
-					
-				</div>
+    <!-- Sessions of a Speaker View -->
+	<div data-role="view" id="sessionsOfSpeaker" data-title="Speakers" class="listsbg" >
+		<ul id="sessionsOfSpeakerList">
+
+		</ul>
+	</div>
+    
+    <!-- Sessions >> All Sessions View -->
+	<div data-role="view" id="allsession" data-title="All" data-show="getAllSessions" class="listsbg">
+		<ul id="sessionsView"
+			data-source="allSessionData"
+			data-endlessScroll="true" 
+			data-template="sessionsTemplate"
+			data-role="listview"
+			data-style="inset">
+
+		</ul>
+	</div>
+    
+    <script type= "text/x-kendo-template" id="sessionsTemplate">
+	
+		<a href="\#sessionDetails?sid=#= Session.SessionID #">#= Session.Title # <br/>
+			<span class="listTime"> By : #=UserProfile.FirstName# <br />
+				<!-- 19800000 is the difference in ticks or ms between IST and GMT.To display date/time in IST substracting this number.  -->
+				#var a = parseInt(Session.SessionTimeSlot.FromTime.replace("/Date(", "").replace(")/", ""), 10) - 19800000 #
+				#=  kendo.toString(new Date(a), "g")#    (#= Session.SessionTimeSlot.Durationinmins# mins) 
+            </span> 
+        </a>       
+				
+	</script>
+
+	<!-- Session Details View -->
+	<div data-role="view" class="listsbgs" id="sessionDetails" data-show="sessionDetailsShow" data-layout="mobile-tabstrip-addtofav">
+
+	</div>
+    
+    <!-- Sessions >> Tracks View -->
+	<div data-role="view" id="tracksession" data-title="Tracks" class="listsbg">
+		<ul id="trackList"
+			data-source="trackData"
+			data-endlessScroll="true" 
+			data-template="trackTemplate"
+			data-role="listview"
+			data-style="inset"
+			data-click="tracksListViewClick">
+
+		</ul>
+	</div>
+    
+    <script type= "text/x-kendo-template" id="trackTemplate">
+		<a href="\#sessionsinTrack?tid=#= SessionTrackID #" class="km-listview-link" data-role="listview-link">#= SessionTrackName #</a>
+	</script>
+    
+    <!-- Sessions in a Track View -->
+	<div data-role="view" id="sessionsinTrack" data-title="Tracks" class="listsbg" >
+
+		<ul id="sessioninTrackList">
+		</ul>
+
+	</div>
+    
+    <!-- Sessions >> Venues View -->
+	<div data-role="view" id="venuesession" data-title="Venue" class="listsbg">
+		<ul id="venueList"
+			data-source="venueData"
+			data-endlessScroll="true" 
+			data-template="venueTemplate"
+			data-role="listview"
+			data-style="inset" 
+			data-click="venueListViewClick">
+
+		</ul>
+	</div>
+    
+    <script type= "text/x-kendo-template" id="venueTemplate">
+		<a href="\#sessionsAtVenue?vid=#= VenueID #">#= VenueName # <br/></a>
+		
+	</script>
+    
+    <!-- Sessions in a Venue View -->
+	<div data-role="view" id="sessionsAtVenue" data-title="Venue" class="listsbg" >
+
+		<ul id="sessioninVenueList">
+
+		</ul>
+	</div>
+    
+    
+    <!-- ######################### -->
+    <!-- Speakers View ########### -->
+    
+	<div data-role="view" id="speakers" data-title="Speakers" data-show="getSpeakers" class="listsbg">
+		<ul id="speakersView"
+			data-template="speakersTemplate"
+			data-source="speakerData"
+			data-endlessScroll="true"
+			data-role="listview"
+			data-style="inset">
+		</ul>
+	</div>
+
+    <script type= "text/x-kendo-template" id="speakersTemplate">
+		<div>
+			<a href="\#speakerDetails?uid=#= UserProfile.UserId #" class="km-listview-link" data-role="listview-link"> #= UserProfile.FirstName # #= UserProfile.LastName # </a>
+		</div>    
+	</script>
+    
+    <!-- Speaker Details View -->
+	<div data-role="view" 
+		 id="speakerDetails"
+		 data-show="speakerDetailsShow" 
+		 data-title="Speaker Details"
+		 class="listsbgs"
+		 >
+	</div>
+    
+
+    <!-- ######################### -->
+    <!-- Session/Speaker Review View  -->
+
+	<div data-role="view" id ="reviewSessionView" data-title="Review" class="listsbgs">
+
+		<div id="sessionRName">
+			Review Comment
+		</div>
+		<textarea id="txtReview"  rows="8"></textarea>
+		<br/>
+		<div id="ratingSession"></div>
+		<h3>
+			Your Rating: <span id="ratingSession-rating">not set</span>
+		</h3>
+
+		<br/><br/>
+		<a data-click="submitReview" data-role="button" data-align="center">Submit</a>
+	</div>
+    
+    
+    <!-- ######################### -->
+	<!-- User | Agenda View ### User can navigate to fav session , fav speaker and my setting views from here  -->
+    
+	<div data-role="view" id="meView" data-title="Personal" data-layout="mobile-tabstrip">
+		<div data-role="content" id="home-contents">
+            <ul data-role="listview" data-style="inset">
+                <li data-icon="grid"><a href="#myagenda">My Agenda</a></li>
+                <li data-icon="grid"><a href="#settingsView">My Settings</a></li>
+                <li data-icon="place"><a href="#about">About</a></li>
+                <li data-icon="contacts"><a href="#map">Map</a></li>
+            </ul>
+		</div>
+	</div>
+    
+    <!-- My Agenda View -->
+
+	<div data-role="view" id="myagenda" data-title="Agenda" class="listsbg" data-show="showMe">
+		<div>
+			<ul id="myAgendaSessionView">
+
+			</ul>
+
+		</div>
+	</div>
+
+	<!-- User Settings View -->
+	<div data-role="view" id="settingsView" data-title="Setting" data-show="checkPersonalSettings">
+		<table>
+			<tr>
+				<td>Name</td>
+				<td>
+					<input id="name"/>
+				</td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td>
+					<input id="email"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Anonymous
+				</td>
+				<td>
+					<input type="checkbox" id="isAnonymous" data-role="switch" />
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<a id="savePersonalDetails" data-click="savePersonalDetailsfn" data-role="button">Save</a>
+				</td>
+			</tr>
+		</table>
+	</div>
+    
+    
+    
+    <!-- ######################### -->
+    <!-- Twitter View ############ -->
+    
+	<div data-role="view" id="tweetView" data-title="Tweets" data-show="showTweets" >
+
+		<ul id="tweetList"
+			data-source="tweets"
+			data-endlessScroll="true" 
+			data-template="tweetTemplate"
+			data-role="listview"
+			data-style="inset"
+			>
+		</ul>
+
+	</div>
+    
+    <!-- Twitter Template -->
+    <script id="tweetTemplate" type="text/x-kendo-template">
+		<div class="tweets">
+			<img class="pullImage" src="#= profile_image_url#" alt="#= from_user #" />#= text #        
+			<div class="metadata">
+				<a class="sublink" target="_blank" href="http://twitter.com/\\#!/#= from_user #/status/#= id_str #" rel="nofollow">#= kendo.toString(new Date(Date.parse(created_at)), "dd MMM HH:mm") #</a>
+				<a class="sublink" href="http://twitter.com/#= from_user #" rel="nofollow">#= from_user #</a>
 			</div>
-		  		         
-		</script>
+		</div>
+	</script>
+    
+    
+    
+    <!-- ######################### -->
+    <!-- Map View ################ -->
+    
+	<div data-role="view" id="map" data-title="Map" data-init="initMap" data-show="showMap" data-hide="hideMap" data-stretch="true">
 
-		<script type= "text/x-kendo-template" id="sessionsTemplate">
-		
-			<a href="\#sessionDetails?sid=#= Session.SessionID #">#= Session.Title # <br/>
-				<span class="listTime"> By : #=UserProfile.FirstName# <br />
-					<!-- 19800000 is the difference in ticks or ms between IST and GMT.To display date/time in IST substracting this number.  -->
-					#var a = parseInt(Session.SessionTimeSlot.FromTime.replace("/Date(", "").replace(")/", ""), 10) - 19800000 #
-					#=  kendo.toString(new Date(a), "g")#    (#= Session.SessionTimeSlot.Durationinmins# mins) </span> </a>       
-					
-		</script>
+		<div data-role="content" class="container">
+			<div id="map_canvas" style="width: 100%; height: 100%; position: absolute;"></div>
+			<img src="" /><img src="" />
+		</div>
+	</div>
+    
+    
+    
+    <!-- ######################### -->
+    <!-- About View ############## -->
+    
+	<div data-role="view" id="about" data-title="About">
+		<div data-role="content" class="container">
+			<div id="iceniumLogo"></div>
+			<div id="about-text">
+				Telerik is a market-leading provider of end-to-end solutions for
+				<a href="http://www.telerik.com/developer-productivity-tools.aspx" data-rel="external">application development</a>,
+				<a href="http://www.telerik.com/automated-testing-tools.aspx" data-rel="external">automated testing</a>
+				<a href="http://www.telerik.com/team-productivity-tools.aspx" data-rel="external">agile project management</a>,
+				<a data-rel="external" href="http://www.sitefinity.com/">content management</a>and
+				<a data-rel="external" href="http://www.icenium.com/">cloud-based cross-platform mobile development.</a>
+				Telerik’s mission is to make software development easier and more enjoyable by providing to technical and business professionals software tools, which help them maximize their productivity and "deliver more than expected” every day. <br />This mobile app was built with <img id="icnlogo" src="speakerimages/iclogoblack9.png"/>
+				and <img id="kedouimlogo" src="speakerimages/kendouilogo1.png"/> Kendo UI Mobile<br /><br />
+				<a href="https://www.icenium.com/" data-rel="external">Icenium</a> is the industry’s first Integrated Cloud Environment (ICE)
+				which eliminates the complexity associated with cross-platform mobile
+				development for iOS and Android. Icenium lets
+				mobile and web developers use web languages they already know – HTML5,
+				CSS3 and JavaScript – to build apps that run natively on devices, and
+				which can be distributed through the Apple App Store and the Google Play Store <br /><br />
+				<a href="https://www.kendoui.com/" data-rel="external"> Kendo UI Mobile </a>
+				is Telerik’s toolset of easy-to-use jQuery mobile widgets and built-in rich components for fast mobile application development. Kendo UI Mobile empowers developers to build native-like mobile apps for iPhone, Android and Blackberry, and deliver unmatched user experience without any extra coding.
 
-		<script type= "text/x-kendo-template" id="filteredSessionsTemplate">  
-		
-			<a href="\#sessionDetails?sid=#= Session.SessionID#">#= Session.Title # <br/>
-				<span class="listTime">
-		
-					#= kendo.toString(new Date(new Date(parseInt(Session.SessionTimeSlot.FromTime.replace("/Date(", "").replace(")/", ""), 10))), "g")# (#= Session.SessionTimeSlot.Durationinmins# mins)
-				</span> </a>
-		</script>
+			</div>
+		</div>
+	</div>
+    
+    
+    
+    
+    <!-- #################################################################### -->
+    <!-- Application Layouts ################################################ -->
 
-		<script type= "text/x-kendo-template" id="venueTemplate">
-			<a href="\#sessionsAtVenue?vid=#= VenueID #">#= VenueName # <br/></a>
-			
-		</script>
+    
+    <!-- ######################### -->
+	<!-- Home Layout ############# -->
+    
+    <div data-role="layout" data-id="home-layout">
+		<header data-role="header">
+			<div data-role="navbar">
+				<a data-role="button" data-align="right" data-icon="info"></a>
+				<span data-role="view-title"></span>
+			</div>
+		</header>
 
-		<script type= "text/x-kendo-template" id="trackTemplate">
-			<a href="\#sessionsinTrack?tid=#= SessionTrackID #" class="km-listview-link" data-role="listview-link">#= SessionTrackName #</a>
-		</script>
+		<div data-role="footer">
+			<div data-role="tabstrip">
+				<a href="#home" data-icon="home">Home</a>
+				<a href="#sessions" data-icon="grid">Sessions</a>
+				<a href="#speakers" data-icon="contacts">Speakers</a>
+				<a href="#meView" data-icon="clock">My Agenda</a>
+				<a href="#tweetView" data-icon="comment">Twitter</a>
+			</div>
+		</div>
+	</div>
+    
+    
+    
+    <!-- ######################### -->
+    <!-- Root Views Layout ####### -->
+    
+    <div data-role="layout" data-id="mobile-tabstrip">
+		<header data-role="header">
+			<div data-role="navbar">
+				<a data-role="button" data-align="right" data-icon="info"></a>
+				<span data-role="view-title"></span>
+			</div>
+		</header>
 
-		<script type= "text/x-kendo-template" id="sessionDetailsTemplate">
-		
-			<div>
-				<div id="sessionTitle">#= Session.Title #</div>
-				<div id="sessionSName">
-					Presented by : #= UserProfile.FirstName# #UserProfile.LastName# 
-					#for (var i = 0;i < UserProfile.UserURLs.results.length;i++) {
-						if (UserProfile.UserURLs.results[i].SNTypeID===1) {#
-							<img class="pullImage" src=#=UserProfile.UserURLs.results[i].URL#
-								 alt=#= UserProfile.FirstName# /> <br />
-						#}
-						else {#
-						# }
-					}#
-				</div>
+		<div data-role="footer">
+			<div data-role="tabstrip">
+				<a href="#home" data-icon="home">Home</a>
+				<a href="#sessions" data-icon="grid">Sessions</a>
+				<a href="#speakers" data-icon="contacts">Speakers</a>
+				<a href="#meView" data-icon="clock">My Agenda</a>
+				<a href="#tweetView" data-icon="comment">Twitter</a>
+			</div>
+		</div>
+	</div>
+    
+    
+    
+    <!-- ######################### -->
+    <!-- Detail Views Layout ##### -->
+    
+	<div data-role="layout" data-id="mobile-tabstrip-addtofav">
+		<header data-role="header">
+			<div data-role="navbar">
+				<a data-role="backbutton" data-align="left">Back</a>
+				<a  class="button" id="saveButton" data-role="button" data-align="right" data-icon="add"  ></a>
+				<span data-role="view-title"></span>
+			</div>
+		</header>
 
-				<div id="sessionSSName">
-					<u>Timing details</u>
-					<ul>
-						<li>
-							Start : #= kendo.toString(new Date(new Date(parseInt(Session.SessionTimeSlot.FromTime.replace("/Date(", "").replace(")/", ""), 10))), "g")#
-						</li>
-						<li>
-							End : #= kendo.toString(new Date(new Date(parseInt(Session.SessionTimeSlot.ToTime.replace("/Date(", "").replace(")/", ""), 10))), "g")#
-						</li>
-						<li>
-							Duration : #= Session.SessionTimeSlot.Durationinmins# Mins
-						</li>
-					</ul>
-				</div>
-				<div id="sessionAbstract">
-					#= Session.Description #
-				</div>
-				<a href="\#reviewSessionView" data-role="button" data-align="right" style="background-blue: green;margin-left:0.5cm;;">Review Session</a>
+		<div data-role="footer">
+			<div data-role="tabstrip">
+				<a href="#home" data-icon="home">Home</a>
+				<a href="#sessions" data-icon="grid">Sessions</a>
+				<a href="#speakers" data-icon="contacts">Speakers</a>
+				<a href="#meView" data-icon="clock">My Agenda</a>
+				<a href="#tweetView" data-icon="comment">Twitter</a>
+			</div>
+		</div>
+	</div>
+
+    
+    
+	<div data-role="layout" data-id="mobile-home">
+		<header data-role="header">
+			<div data-role="navbar">
+
+				<span data-role="view-title"></span>
+			</div>
+		</header>
+	</div>
+
+	
+
+	
+    <script type= "text/x-kendo-template" id="speakerDetailsTemplate">      
+        
+		<div>
+			<div id="sessionTitle"> #= FirstName # #= LastName #  <br/>
+				#for (var i = 0;i < UserURLs.results.length;i++) {
+					if (UserURLs.results[i].SNTypeID===1) {#
+						<img class="sponsorThumbnail" src="#=UserURLs.results[i].URL#"
+							 alt="#= FirstName#" /> <br/>
+					#}
+					else {#
+					# }
+				}# 
+            </div>
+			<div id="sessionSName"> 
+				
+				#= FirstName#
+				works for  #= Company.CompanyName # as 
+				#=Designation.DesignationName#
+				and can be contacted at #=Email# <br/><br/>             
+				#= FirstName# lives in #= City.CityName # , #= Country.CountryName #
+				
+			</div>
+		</div>
+	  		         
+	</script>
+	
+	<script type= "text/x-kendo-template" id="filteredSessionsTemplate">  
+	
+		<a href="\#sessionDetails?sid=#= Session.SessionID#">#= Session.Title # <br/>
+			<span class="listTime">
+	
+				#= kendo.toString(new Date(new Date(parseInt(Session.SessionTimeSlot.FromTime.replace("/Date(", "").replace(")/", ""), 10))), "g")# (#= Session.SessionTimeSlot.Durationinmins# mins)
+			</span>
+        </a>
+	</script>
+
+	<script type= "text/x-kendo-template" id="sessionDetailsTemplate">
+	
+		<div>
+			<div id="sessionTitle">#= Session.Title #</div>
+			<div id="sessionSName">
+				Presented by : #= UserProfile.FirstName# #UserProfile.LastName# 
+				#for (var i = 0;i < UserProfile.UserURLs.results.length;i++) {
+					if (UserProfile.UserURLs.results[i].SNTypeID===1) {#
+						<img class="pullImage" src="#=UserProfile.UserURLs.results[i].URL#"
+							 alt="#= UserProfile.FirstName#" /> <br />
+					#}
+					else {#
+					# }
+				}#
 			</div>
 
-		</script>
+			<div id="sessionSSName">
+				<u>Timing details</u>
+				<ul>
+					<li>
+						Start : #= kendo.toString(new Date(new Date(parseInt(Session.SessionTimeSlot.FromTime.replace("/Date(", "").replace(")/", ""), 10))), "g")#
+					</li>
+					<li>
+						End : #= kendo.toString(new Date(new Date(parseInt(Session.SessionTimeSlot.ToTime.replace("/Date(", "").replace(")/", ""), 10))), "g")#
+					</li>
+					<li>
+						Duration : #= Session.SessionTimeSlot.Durationinmins# Mins
+					</li>
+				</ul>
+			</div>
+			<div id="sessionAbstract">
+				#= Session.Description #
+			</div>
+			<a href="\#reviewSessionView" data-role="button" data-align="right" style="background-blue: green;margin-left:0.5cm;;">Review Session</a>
+		</div>
 
-		<script>
-			var app = new kendo.mobile.Application(document.body, { transition: "slide", layout: "mobile-tabstrip",initial:"home" });
-		</script>
-	</body>
+	</script>
+
+	<script>
+		var app = new kendo.mobile.Application(document.body, { transition: "slide", layout: "mobile-tabstrip",initial:"home" });
+	</script>
+</body>
 </html>
