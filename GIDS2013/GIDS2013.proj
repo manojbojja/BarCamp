@@ -39,6 +39,7 @@
     <Folder Include="styles\images" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="App_Resources\Android\drawable-nodpi\splashscreen.9.png" />
     <Resource Include="App_Resources\iOS\icon.png" />
     <Resource Include="App_Resources\iOS\icon@2x.png" />
     <Resource Include="App_Resources\iOS\icon-72.png" />
