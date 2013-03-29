@@ -24,7 +24,7 @@
     <!-- ######################### -->
     <!-- Home View ############### -->
     
-    <div data-role="view" id="home" data-title="GIDS 2013" data-layout="home-layout">
+    <div data-role="view" id="home" data-title="GIDS 2013" data-layout="app-layout">
 		<div data-role="content" id="home-content">
             <div id="logo"></div>
             <p>Join GIDS 2013 edition for cutting-edge content that will squarely put you ahead of the pack.</p>
@@ -40,7 +40,7 @@
     <!-- ######################### -->
     <!-- Sessions Main View ###### User can select sessions by different options from here  -->
 
-	<div data-role="view" id="sessions" data-title="Sessions" data-layout="mobile-tabstrip">
+	<div data-role="view" id="sessions" data-title="Sessions" data-layout="app-layout">
 		<div data-role="content" id="home-contents">
             <ul data-role="listview" data-style="inset">
                 <li data-icon="grid"><a href="#allsession">All Sessions</a></li>
@@ -52,7 +52,7 @@
 	</div>
     
     <!-- Sessions >> Speakers View -->
-	<div data-role="view" id="sessionbyspeaker" data-title="Speakers" data-show="getSpeakers" class="listsbg">
+	<div data-role="view" id="sessionbyspeaker" data-title="Speakers" data-show="getSpeakers" data-layout="app-layout">
 		<ul id="speakersView"
 			data-template="speakersbySessionTemplate"
 			data-source="speakerData"
@@ -68,14 +68,14 @@
 	</script>
             
     <!-- Sessions of a Speaker View -->
-	<div data-role="view" id="sessionsOfSpeaker" data-title="Speakers" class="listsbg" >
+	<div data-role="view" id="sessionsOfSpeaker" data-title="Speakers" data-layout="app-layout">
 		<ul id="sessionsOfSpeakerList">
 
 		</ul>
 	</div>
     
     <!-- Sessions >> All Sessions View -->
-	<div data-role="view" id="allsession" data-title="All" data-show="getAllSessions" class="listsbg">
+	<div data-role="view" id="allsession" data-title="All" data-show="getAllSessions" data-layout="app-layout">
 		<ul id="sessionsView"
 			data-source="allSessionData"
 			data-endlessScroll="true" 
@@ -99,12 +99,12 @@
 	</script>
 
 	<!-- Session Details View -->
-	<div data-role="view" class="listsbgs" id="sessionDetails" data-show="sessionDetailsShow" data-layout="mobile-tabstrip-addtofav">
+	<div data-role="view" id="sessionDetails" data-show="sessionDetailsShow" data-layout="mobile-tabstrip-addtofav">
 
 	</div>
     
     <!-- Sessions >> Tracks View -->
-	<div data-role="view" id="tracksession" data-title="Tracks" class="listsbg">
+	<div data-role="view" id="tracksession" data-title="Tracks" data-layout="app-layout">
 		<ul id="trackList"
 			data-source="trackData"
 			data-endlessScroll="true" 
@@ -114,6 +114,16 @@
 			data-click="tracksListViewClick">
 
 		</ul>
+        
+        <div data-role="footer">
+			<div data-role="tabstrip">
+				<a href="#sessions" data-icon="grid">Sessions</a>
+                <a href="#home" data-icon="home">Home</a>
+				<a href="#speakers" data-icon="contacts">Speakers</a>
+				<a href="#meView" data-icon="clock">My Agenda</a>
+				<a href="#tweetView" data-icon="comment">Twitter</a>
+			</div>
+		</div>
 	</div>
     
     <script type="text/x-kendo-template" id="trackTemplate">
@@ -121,7 +131,7 @@
 	</script>
     
     <!-- Sessions in a Track View -->
-	<div data-role="view" id="sessionsinTrack" data-title="Tracks" class="listsbg" >
+	<div data-role="view" id="sessionsinTrack" data-title="Tracks" data-layout="app-layout">
 
 		<ul id="sessioninTrackList">
 		</ul>
@@ -129,7 +139,7 @@
 	</div>
     
     <!-- Sessions >> Venues View -->
-	<div data-role="view" id="venuesession" data-title="Venue" class="listsbg">
+	<div data-role="view" id="venuesession" data-title="Venue" data-layout="app-layout">
 		<ul id="venueList"
 			data-source="venueData"
 			data-endlessScroll="true" 
@@ -137,7 +147,6 @@
 			data-role="listview"
 			data-style="inset" 
 			data-click="venueListViewClick">
-
 		</ul>
 	</div>
     
@@ -147,7 +156,7 @@
 	</script>
     
     <!-- Sessions in a Venue View -->
-	<div data-role="view" id="sessionsAtVenue" data-title="Venue" class="listsbg" >
+	<div data-role="view" id="sessionsAtVenue" data-title="Venue" data-layout="app-layout">
 
 		<ul id="sessioninVenueList">
 
@@ -158,7 +167,7 @@
     <!-- ######################### -->
     <!-- Speakers View ########### -->
     
-	<div data-role="view" id="speakers" data-title="Speakers" data-show="getSpeakers" class="listsbg">
+	<div data-role="view" id="speakers" data-title="Speakers" data-show="getSpeakers" data-layout="app-layout">
 		<ul id="speakersView"
 			data-template="speakersTemplate"
 			data-source="speakerData"
@@ -179,7 +188,6 @@
 		 id="speakerDetails"
 		 data-show="speakerDetailsShow" 
 		 data-title="Speaker Details"
-		 class="listsbgs"
 		 >
 	</div>
     
@@ -187,7 +195,7 @@
     <!-- ######################### -->
     <!-- Session/Speaker Review View  -->
 
-	<div data-role="view" id ="reviewSessionView" data-title="Review" class="listsbgs">
+	<div data-role="view" id ="reviewSessionView" data-title="Review" data-layout="app-layout">
 
 		<div id="sessionRName">
 			Review Comment
@@ -207,7 +215,7 @@
     <!-- ######################### -->
 	<!-- User | Agenda View ### User can navigate to fav session , fav speaker and my setting views from here  -->
     
-	<div data-role="view" id="meView" data-title="Personal" data-layout="mobile-tabstrip">
+	<div data-role="view" id="meView" data-title="Personal" data-layout="app-layout">
 		<div data-role="content" id="home-contents">
             <ul data-role="listview" data-style="inset">
                 <li data-icon="grid"><a href="#myagenda">My Agenda</a></li>
@@ -220,7 +228,7 @@
     
     <!-- My Agenda View -->
 
-	<div data-role="view" id="myagenda" data-title="Agenda" class="listsbg" data-show="showMe">
+	<div data-role="view" id="myagenda" data-title="Agenda" data-show="showMe" data-layout="app-layout">
 		<div>
 			<ul id="myAgendaSessionView">
 
@@ -230,7 +238,7 @@
 	</div>
 
 	<!-- User Settings View -->
-	<div data-role="view" id="settingsView" data-title="Setting" data-show="checkPersonalSettings">
+	<div data-role="view" id="settingsView" data-title="Setting" data-show="checkPersonalSettings" data-layout="app-layout">
 		<table>
 			<tr>
 				<td>Name</td>
@@ -264,7 +272,7 @@
     <!-- ######################### -->
     <!-- Twitter View ############ -->
     
-	<div data-role="view" id="tweetView" data-title="Tweets" data-show="showTweets" >
+	<div data-role="view" id="tweetView" data-title="Tweets" data-show="showTweets" data-layout="app-layout">
 
 		<ul id="tweetList"
 			data-source="tweets"
@@ -292,7 +300,7 @@
     <!-- ######################### -->
     <!-- Map View ################ -->
     
-	<div data-role="view" id="map" data-title="Map" data-init="initMap" data-show="showMap" data-hide="hideMap" data-stretch="true">
+	<div data-role="view" id="map" data-title="Map" data-init="initMap" data-show="showMap" data-hide="hideMap" data-stretch="true" data-layout="app-layout">
 
 		<div data-role="content" class="container">
 			<div id="map_canvas" style="width: 100%; height: 100%; position: absolute;"></div>
@@ -304,7 +312,7 @@
     <!-- ######################### -->
     <!-- About View ############## -->
     
-	<div data-role="view" id="about" data-title="About">
+	<div data-role="view" id="about" data-title="About" data-layout="app-layout">
 		<div data-role="content" class="container">
 			<div id="iceniumLogo"></div>
 			<div id="about-text">
@@ -334,36 +342,15 @@
     <!-- Application Layouts ################################################ -->
 
     
-    <!-- ######################### -->
-	<!-- Home Layout ############# -->
-    
-    <div data-role="layout" data-id="home-layout">
-		<header data-role="header">
-			<div data-role="navbar">
-				<a data-role="button" data-align="right" data-icon="info"></a>
-				<span data-role="view-title"></span>
-			</div>
-		</header>
-
-		<div data-role="footer">
-			<div data-role="tabstrip">
-				<a href="#home" data-icon="home">Home</a>
-				<a href="#sessions" data-icon="grid">Sessions</a>
-				<a href="#speakers" data-icon="contacts">Speakers</a>
-				<a href="#meView" data-icon="clock">My Agenda</a>
-				<a href="#tweetView" data-icon="comment">Twitter</a>
-			</div>
-		</div>
-	</div>
-    
     
     <!-- ######################### -->
     <!-- Root Views Layout ####### -->
     
-    <div data-role="layout" data-id="mobile-tabstrip">
+    <div data-role="layout" data-id="app-layout">
 		<header data-role="header">
 			<div data-role="navbar">
-				<a data-role="button" data-align="right" data-icon="info"></a>
+				<a data-role="backbutton" data-align="left">Back</a>
+                <a data-role="button" data-align="right" data-icon="info"></a>
 				<span data-role="view-title"></span>
 			</div>
 		</header>
