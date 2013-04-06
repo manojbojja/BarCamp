@@ -24,7 +24,7 @@
     <!-- ######################### -->
     <!-- Home View ############### -->
     
-    <div data-role="view" id="home" data-title="GIDS 2013" data-layout="app-layout">
+    <div data-role="view" id="home" data-title="GIDS 2013" data-layout="app-layout" data-show="OnHomeViewLoad">
 		<div data-role="content" id="home-content">
             <div id="logo"></div>
             <p>Join GIDS 2013 edition for cutting-edge content that will squarely put you ahead of the pack.</p>
@@ -337,6 +337,26 @@
 			</div>
 		</div>
 	</div>
+    
+    <!-- ######################### -->
+    <!-- Modal View ############## -->
+    
+    <div data-role="modalview" id="modalview-usersettings" style="width: 95%; height: 18em;">
+        <div data-role="header">
+            <div data-role="navbar">
+                <span>Settings</span>
+            </div>
+        </div>
+    
+        <ul data-role="listview" data-style="inset" id="usersettings-form">
+            <li><label for="txtUserName">Name:</label> <input type="text" id="txtUserName" required/></li>
+            <li><label for="txtEmail">Email:</label> <input type="email" id="txtEmail" required/></li>
+            <li><label for="txtEmail">Anonymous:</label> <input type="checkbox" id="chkIsAnonymous" data-role="switch" />
+        </ul>
+        <span id="usersettings-form-status"></span>
+                <br />
+        <a data-click="SaveUserSettings" id="modalview-usersettings-button" data-role="button" data-align="right">Save</a>
+    </div>
     
     
     <!-- #################################################################### -->

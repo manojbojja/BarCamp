@@ -445,6 +445,7 @@ function getMyAgendaData(e)
 
 //=======================Speaker Detail function=======================//
 
+var currentSessionInView;
 
 function sessionDetailsShow(e)
 {
@@ -452,7 +453,8 @@ function sessionDetailsShow(e)
             console.log("hello");
             var view = e.view;
             var item;
-           
+            currentSessionInView = e.view.params.sid;
+    
              var urlToFetchSessionDetail = baseURL+"/SessionAttendees?$expand=UserProfile,Session,Session/SessionTimeSlot,UserProfile/UserURLs&$filter=AttendeeType eq 11 and SessionID eq "+e.view.params.sid+" &$select=Session/SessionID,UserProfile/UserId,UserProfile/FirstName,UserProfile/LastName,UserProfile/UserURLs/URL,UserProfile/UserURLs/SNTypeID,Session"
           
             var template = kendo.template($("#sessionDetailsTemplate").text());
@@ -680,7 +682,7 @@ function contains(a, obj) {
 
 $(document).ready(function () {
     
-   
+    $("#usersettings-form").kendoValidator();
     
     $('#ratingSession').ratings(5).bind('ratingchanged', function (event, data) {
         $('#ratingSession-rating').text(data.rating);
@@ -691,22 +693,35 @@ $(document).ready(function () {
 
 function savePersonalDetailsfn()
 {
-    var personalDetails = new Array();
+    var settings = JSON.parse(localStorage.getItem("userSettings"));
+    settings.name = $('#name').val();
+    settings.email = $('#email').val();
+    settings.anonymous = $('#isAnonymous').data("kendoMobileSwitch").check();
+    localStorage.setItem("userSettings", JSON.stringify(settings));
+    
+    /*var personalDetails = new Array();
     var obj = {'name': $('#name').val()};
     personalDetails.push(obj);
     var obj1 = {'email':$('#email').val() };
     personalDetails.push(obj1);
     var obj2 = {'isAnonymous': $('#isAnonymous').data("kendoMobileSwitch").check()}
     personalDetails.push(obj2);
+    
     localStorage['myDetails'] = JSON.stringify(personalDetails);
+    */
 }
 
 
 
 function checkPersonalSettings()
 {
-  
-    if (localStorage['myDetails'])
+    var settings = JSON.parse(localStorage.getItem("userSettings"));
+    $('#name').val(settings.name);
+    $('#email').val(settings.email);
+    $('#isAnonymous').data("kendoMobileSwitch").check(settings.anonymous);
+    $('#savePersonalDetails').text('Update');
+    
+    /*if (localStorage['myDetails'])
     {
         
         var personalDetails = JSON.parse(localStorage['myDetails']);
@@ -715,20 +730,47 @@ function checkPersonalSettings()
         $('#email').val(personalDetails[1].email);
         $('#isAnonymous').data("kendoMobileSwitch").check(personalDetails[2].isAnonymous);
         $('#savePersonalDetails').text('Update');
-    }
+    }*/
 }
 
 
 function submitReview(e)
 {
-   
+   currentSessionInView;
+    
+    
+    var sessionRating = kendo.data.Model.define({
+            id: "SessionRatingID"
+        })
+
+        dataSource = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: "http://localhost:15684/api/SessionRatings",
+                    dataType: "json"
+                },
+                create: {
+                    url: "http://localhost:15684/api/SessionRatings",
+                    type: "POST",
+                    dataType: "json"
+                }
+            },
+            schema: {
+                model: sessionRating
+            }
+        });
+        
+    dataSource.add({ SessionID: currentSessionInView, Rating: $("#ratingSession-rating").text(), UserEmail: 'test@test.com'});
+    dataSource.sync();
+    
     var item = {'review': $("#txtReview").val(),'rating':$("#ratingSession-rating").text(),};
     
     if (!localStorage.myReview) 
     {
         localStorage.myReview = JSON.stringify([]);
     }
-          
+    
+    
           
           var myreview = JSON.parse(localStorage["myReview"]);          
            myreview.push(item);    
@@ -817,3 +859,34 @@ function onGeolocationError(error) {
 }
 
 
+function OnHomeViewLoad()
+{
+    if (!window.localStorage){
+        return;
+    }
+   
+    if (!localStorage.getItem("userSettings"))
+    {
+        $("#modalview-usersettings").data("kendoMobileModalView").open();
+    }    
+}
+
+
+function SaveUserSettings()
+{
+    var name = $("#txtUserName").val();
+    var email = $("#txtEmail").val();
+    if(name === "")
+    {
+        $("#usersettings-form-status").text("Name is required.");    
+        return;
+    }
+    if(email === "")
+    {
+        $("#usersettings-form-status").text("Email is required.");    
+        return;
+    }
+    var userSettings = {'name':name,'email':email,'anonymous':$('#chkIsAnonymous').data("kendoMobileSwitch").check()};
+    localStorage.setItem("userSettings", JSON.stringify(userSettings));
+    $("#modalview-usersettings").data("kendoMobileModalView").close();
+}
