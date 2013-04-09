@@ -20,6 +20,7 @@
     display: block;
     width: 50%;
     margin: 15pt auto 5pt auto;
+    text-align: center;
 }
 #usersettings-form-status {
     display: block;
@@ -31,13 +32,13 @@
 /* SpeakerDetails */
 #speakerName h2 {
     float: left;
-    font-size: 1.1em;
+    font-size: 1em;
     margin: 0 0 0 .3em;
 }
 #speakerName h2 span {
     display: block;
     clear: both;
-    font-size: 1.5em;
+    font-size: 1.4em;
     margin: .1em 0 0 0;
 }
 #speakerName img {

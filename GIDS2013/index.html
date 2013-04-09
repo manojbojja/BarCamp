@@ -441,6 +441,10 @@
                             <h2>#= FirstName # <span>#= LastName #</span></h2>
                              
                         </li>
+                     </ul>
+                </li>
+                <li>Speaker Bio
+                    <ul>
                         <li id="speakerInfo">
                             
                             <p>
@@ -471,25 +475,35 @@
 	</script>
 
 	<script type="text/x-kendo-template" id="sessionDetailsTemplate">
-	
-		<div>
-			<div id="sessionTitle">#= Session.Title #</div>
-			<div id="sessionSName">
-				Presented by : #= UserProfile.FirstName# #UserProfile.LastName# 
-				#for (var i = 0;i < UserProfile.UserURLs.results.length;i++) {
-					if (UserProfile.UserURLs.results[i].SNTypeID===1) {#
-						<img class="pullImage" src="#=UserProfile.UserURLs.results[i].URL#"
-							 alt="#= UserProfile.FirstName#" /> <br />
-					#}
-					else {#
-					# }
-				}#
-			</div>
-
-			<div id="sessionSSName">
-				<u>Timing details</u>
-				<ul>
-					<li>
+	   
+        <ul data-role="listview" data-style="inset" data-type="group">
+            <li>
+                <ul>
+                    <li id="sessionTitle">
+                        #= Session.Title #
+                    </li>
+                </ul>
+            </li>
+                
+            <li>Presented by
+                <ul>
+                    <li id="speakerName">
+        				#for (var i = 0;i < UserProfile.UserURLs.results.length;i++) {
+        					if (UserProfile.UserURLs.results[i].SNTypeID===1) {#
+        						<img class="pullImage" src="#=UserProfile.UserURLs.results[i].URL#"
+        							 alt="#= UserProfile.FirstName#" /> <br />
+        					#}
+        					else {#
+        					# }
+        				}#
+                        <h2>#= UserProfile.FirstName# <span>#= UserProfile.LastName#</span></h2> 
+                    </li>
+                </ul>
+            </li>
+                
+            <li>Timing details
+                <ul>
+                    <li>
 						Start : #= kendo.toString(new Date(new Date(parseInt(Session.SessionTimeSlot.FromTime.replace("/Date(", "").replace(")/", ""), 10))), "g")#
 					</li>
 					<li>
@@ -498,13 +512,19 @@
 					<li>
 						Duration : #= Session.SessionTimeSlot.Durationinmins# Mins
 					</li>
-				</ul>
-			</div>
-			<div id="sessionAbstract">
-				#= Session.Description #
-			</div>
-			<a href="\#reviewSessionView" data-role="button" data-align="right" style="background-blue: green;margin-left:0.5cm;;">Review Session</a>
-		</div>
+                </ul>
+            </li>
+                
+            <li>Description
+                <ul>
+                    <li>
+						<p style="maring: 0; padding: 0;">#= Session.Description #</p>
+					</li>
+                </ul>
+            </li>
+        </ul>
+            
+        <p><a href="\#reviewSessionView" data-role="button" data-align="right" class="submit-button">Review Session</a><br /></p>
 
 	</script>
 
