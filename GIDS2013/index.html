@@ -88,12 +88,18 @@
     
     <script type="text/x-kendo-template" id="sessionsTemplate">
 	
-		<a href="\#sessionDetails?sid=#= Session.SessionID #">#= Session.Title # <br/>
-			<span class="listTime"> By : #=UserProfile.FirstName# <br />
-				<!-- 19800000 is the difference in ticks or ms between IST and GMT.To display date/time in IST substracting this number.  -->
+		<a href="\#sessionDetails?sid=#= Session.SessionID #">
+            <span class="session-title">#= Session.Title #</span>
+			<span class="session-detail">
+                Speaker: #= UserProfile.FirstName# <br /> Duration: #= Session.SessionTimeSlot.Durationinmins# mins
+            </span>
+                
+            <span class="session-time">
+                <!-- 19800000 is the difference in ticks or ms between IST and GMT.To display date/time in IST substracting this number.  -->
 				#var a = parseInt(Session.SessionTimeSlot.FromTime.replace("/Date(", "").replace(")/", ""), 10) - 19800000 #
-				#=  kendo.toString(new Date(a), "g")#    (#= Session.SessionTimeSlot.Durationinmins# mins) 
-            </span> 
+				#=  kendo.toString(new Date(a), "g")#
+            </span>
+                
         </a>       
 				
 	</script>
@@ -209,7 +215,7 @@
 		</h3>
 
 		<br/><br/>
-		<a data-click="submitReview" data-role="button" data-align="center">Submit</a>
+		<a data-click="submitReview" data-role="button" data-align="center" class="submit-button">Submit</a>
 	</div>
     
     
@@ -466,11 +472,15 @@
 	
 	<script type="text/x-kendo-template" id="filteredSessionsTemplate">  
 	
-		<a href="\#sessionDetails?sid=#= Session.SessionID#">#= Session.Title # <br/>
-			<span class="listTime">
-	
-				#= kendo.toString(new Date(new Date(parseInt(Session.SessionTimeSlot.FromTime.replace("/Date(", "").replace(")/", ""), 10))), "g")# (#= Session.SessionTimeSlot.Durationinmins# mins)
-			</span>
+		<a href="\#sessionDetails?sid=#= Session.SessionID#">
+            <span class="session-title">#= Session.Title #</span>
+			<span class="session-detail">
+                Duration: #= Session.SessionTimeSlot.Durationinmins# mins
+            </span>
+            <span class="session-time">
+                <!-- 19800000 is the difference in ticks or ms between IST and GMT.To display date/time in IST substracting this number.  -->
+				#= kendo.toString(new Date(new Date(parseInt(Session.SessionTimeSlot.FromTime.replace("/Date(", "").replace(")/", ""), 10))), "g")#
+            </span>
         </a>
 	</script>
 
