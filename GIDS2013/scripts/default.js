@@ -738,6 +738,8 @@ function submitReview(e)
 {
    currentSessionInView;
     
+   var settings = JSON.parse(localStorage.getItem("userSettings")); 
+   var email = settings.email;
     
     var sessionRating = kendo.data.Model.define({
             id: "SessionRatingID"
@@ -760,24 +762,23 @@ function submitReview(e)
             }
         });
         
-    dataSource.add({ SessionID: currentSessionInView, Rating: $("#ratingSession-rating").text(), UserEmail: 'test@test.com'});
+    dataSource.add({ SessionID: currentSessionInView, Rating: $("#ratingSession-rating").text(), UserEmail: email});
     dataSource.sync();
+    var reviewItem = {'sessionRatingid':null,'sessionId':currentSessionInView, 'rating':$("#ratingSession-rating").text(),'review': $("#txtReview").val()}
+    if (!localStorage.getItem("review_session_"+currentSessionInView)) 
+    {
+        localStorage.setItem("review_session_"+currentSessionInView, JSON.stringify(reviewItem))
+    }
     
     var item = {'review': $("#txtReview").val(),'rating':$("#ratingSession-rating").text(),};
-    
+        
     if (!localStorage.myReview) 
     {
         localStorage.myReview = JSON.stringify([]);
     }
-    
-    
-          
-          var myreview = JSON.parse(localStorage["myReview"]);          
-           myreview.push(item);    
-           localStorage["myReview"] = JSON.stringify(myreview);            
-             
-              
-    
+    var myreview = JSON.parse(localStorage["myReview"]);          
+    myreview.push(item);    
+    localStorage["myReview"] = JSON.stringify(myreview);            
 }
 
   
@@ -889,4 +890,25 @@ function SaveUserSettings()
     var userSettings = {'name':name,'email':email,'anonymous':$('#chkIsAnonymous').data("kendoMobileSwitch").check()};
     localStorage.setItem("userSettings", JSON.stringify(userSettings));
     $("#modalview-usersettings").data("kendoMobileModalView").close();
+}
+
+
+function OnSessionReviewFormLoad(e)
+{
+    var userReview = null;
+    userReview = localStorage.getItem("review_session_"+currentSessionInView)
+    var reviewTextBox = $("#txtReview")
+    var ratingElement = $("#ratingSession-rating")
+    
+    if (userReview != null) 
+    {
+        userReview = JSON.parse(userReview);
+        reviewTextBox.text(userReview.review);
+        ratingElement.text(userReview.rating);
+    }   
+    else
+    {
+        reviewTextBox.text('');
+        ratingElement.text('');
+    }
 }
