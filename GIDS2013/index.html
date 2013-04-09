@@ -342,7 +342,7 @@
     <!-- ######################### -->
     <!-- Modal View ############## -->
     
-    <div data-role="modalview" id="modalview-usersettings" style="width: 95%; height: 18em;">
+    <div data-role="modalview" id="modalview-usersettings" style="width: 95%; height: 19em">
         <div data-role="header">
             <div data-role="navbar">
                 <span>Settings</span>
@@ -354,9 +354,8 @@
             <li><label for="txtEmail">Email:</label> <input type="email" id="txtEmail" required/></li>
             <li><label for="txtEmail">Anonymous:</label> <input type="checkbox" id="chkIsAnonymous" data-role="switch" />
         </ul>
-        <span id="usersettings-form-status"></span>
-                <br />
-        <a data-click="SaveUserSettings" id="modalview-usersettings-button" data-role="button" data-align="right">Save</a>
+        <a data-click="SaveUserSettings" id="modalview-usersettings-button" data-role="button" class="submit-button">Save</a>
+        <span id="usersettings-form-status"></span>        
     </div>
     
     
@@ -428,27 +427,37 @@
 	
     <script type="text/x-kendo-template" id="speakerDetailsTemplate">      
         
-		<div>
-			<div id="sessionTitle"> #= FirstName # #= LastName #  <br/>
-				#for (var i = 0;i < UserURLs.results.length;i++) {
-					if (UserURLs.results[i].SNTypeID===1) {#
-						<img class="sponsorThumbnail" src="#=UserURLs.results[i].URL#"
-							 alt="#= FirstName#" /> <br/>
-					#}
-					else {#
-					# }
-				}# 
-            </div>
-			<div id="sessionSName"> 
-				
-				#= FirstName#
-				works for  #= Company.CompanyName # as 
-				#=Designation.DesignationName#
-				and can be contacted at #=Email# <br/><br/>             
-				#= FirstName# lives in #= City.CityName # , #= Country.CountryName #
-				
-			</div>
-		</div>
+            <ul data-role="listview" data-style="inset" data-type="group">
+                <li>
+                    <ul>
+                        <li id="speakerName">
+                            #for (var i = 0;i < UserURLs.results.length;i++) {
+            					if (UserURLs.results[i].SNTypeID===1) {#
+            						<img class="sponsorThumbnail" src="#=UserURLs.results[i].URL#"
+            							 alt="#= FirstName#" /> <br/>
+            					#}
+            					else {#
+            					# }
+            				}#
+                            <h2>#= FirstName # <span>#= LastName #</span></h2>
+                             
+                        </li>
+                        <li id="speakerInfo">
+                            
+                            <p>
+                                #= FirstName#
+                				works for  #= Company.CompanyName # as 
+                				#=Designation.DesignationName#
+                				and can be contacted at <span> #=Email# </span> 
+                            </p>
+                            <p>
+            				    #= FirstName# lives in #= City.CityName # , #= Country.CountryName #
+                            </p>
+            
+                        </li>
+                    </ul>
+                </li>
+            </ul>
 	  		         
 	</script>
 	

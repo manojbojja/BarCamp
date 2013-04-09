@@ -16,7 +16,44 @@
     margin: 0 auto 20pt auto;
 }
 
+.submit-button {
+    display: block;
+    width: 50%;
+    margin: 15pt auto 5pt auto;
+}
+#usersettings-form-status {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
 
+
+/* SpeakerDetails */
+#speakerName h2 {
+    float: left;
+    font-size: 1.1em;
+    margin: 0 0 0 .3em;
+}
+#speakerName h2 span {
+    display: block;
+    clear: both;
+    font-size: 1.5em;
+    margin: .1em 0 0 0;
+}
+#speakerName img {
+    width: 5em;
+    height: 5em;
+    float: left;
+    margin: 1em;
+    -webkit-box-shadow: 0 2px 3px #2f2152;
+    box-shadow: 0 2px 3px #2f2152;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    border: 0;
+}
+#speakerInfo span {
+    color: #ffa73e;
+}
 
 
 /* Retina Support */
