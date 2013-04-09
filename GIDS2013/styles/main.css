@@ -86,6 +86,15 @@
     width: 100%;
 }
 
+#about p {
+    font-size: .8em;
+    font-weight: normal;
+}
+#about p a {
+    color: #ffa73e;
+    text-decoration: none;
+}
+
 /* Retina Support */
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2),

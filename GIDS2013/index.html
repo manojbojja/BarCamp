@@ -204,14 +204,14 @@
 
 	<div data-role="view" id ="reviewSessionView" data-title="Review" data-layout="app-layout">        
         <ul data-role="listview" data-style="inset"  data-type="group">
-            <li>Write Review Comment:
+            <li>Write Review Comment
                 <ul>
                     <li>
                         <textarea id="txtReview"  rows="4"></textarea>
                     </li>
                 </ul>
             </li>
-            <li>Rate the Session:
+            <li>Rate the Session
                 <ul style="text-align: center;">
                     <li>
                         <div id="ratingSession"></div>
@@ -234,8 +234,8 @@
             <ul data-role="listview" data-style="inset">
                 <li data-icon="grid"><a href="#myagenda">My Agenda</a></li>
                 <li data-icon="grid"><a href="#settingsView">My Settings</a></li>
-                <li data-icon="place"><a href="#about">About</a></li>
-                <li data-icon="contacts"><a href="#map">Map</a></li>
+                <li data-icon="place"><a href="#map">Map</a></li>
+                <li data-icon="info"><a href="#about">About</a></li>
             </ul>
 		</div>
 	</div>
@@ -252,34 +252,13 @@
 	</div>
 
 	<!-- User Settings View -->
-	<div data-role="view" id="settingsView" data-title="Setting" data-show="checkPersonalSettings" data-layout="app-layout">
-		<table>
-			<tr>
-				<td>Name</td>
-				<td>
-					<input id="name"/>
-				</td>
-			</tr>
-			<tr>
-				<td>Email</td>
-				<td>
-					<input id="email"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Anonymous
-				</td>
-				<td>
-					<input type="checkbox" id="isAnonymous" data-role="switch" />
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<a id="savePersonalDetails" data-click="savePersonalDetailsfn" data-role="button">Save</a>
-				</td>
-			</tr>
-		</table>
+	<div data-role="view" id="settingsView" data-title="My Settings" data-show="checkPersonalSettings" data-layout="app-layout">
+        <ul data-role="listview" data-style="inset">
+            <li><label for="name">Name</label> <input type="text" id="name"/></li>
+            <li><label for="email">Email</label> <input type="email" id="email"/></li>
+            <li><label for="isAnonymous">Anonymous</label> <input type="checkbox" id="isAnonymous" data-role="switch" /></li>
+        </ul>
+        <a  id="savePersonalDetails" data-click="savePersonalDetailsfn" data-role="button" class="submit-button">Save</a>
 	</div>
     
     
@@ -327,28 +306,40 @@
     <!-- About View ############## -->
     
 	<div data-role="view" id="about" data-title="About" data-layout="app-layout">
-		<div data-role="content" class="container">
-			<div id="iceniumLogo"></div>
-			<div id="about-text">
-				Telerik is a market-leading provider of end-to-end solutions for
-				<a href="http://www.telerik.com/developer-productivity-tools.aspx" data-rel="external">application development</a>,
-				<a href="http://www.telerik.com/automated-testing-tools.aspx" data-rel="external">automated testing</a>
-				<a href="http://www.telerik.com/team-productivity-tools.aspx" data-rel="external">agile project management</a>,
-				<a data-rel="external" href="http://www.sitefinity.com/">content management</a>and
-				<a data-rel="external" href="http://www.icenium.com/">cloud-based cross-platform mobile development.</a>
-				Telerik’s mission is to make software development easier and more enjoyable by providing to technical and business professionals software tools, which help them maximize their productivity and "deliver more than expected” every day. <br />This mobile app was built with <img id="icnlogo" src="speakerimages/iclogoblack9.png"/>
-				and <img id="kedouimlogo" src="speakerimages/kendouilogo1.png"/> Kendo UI Mobile<br /><br />
-				<a href="https://www.icenium.com/" data-rel="external">Icenium</a> is the industry’s first Integrated Cloud Environment (ICE)
-				which eliminates the complexity associated with cross-platform mobile
-				development for iOS and Android. Icenium lets
-				mobile and web developers use web languages they already know – HTML5,
-				CSS3 and JavaScript – to build apps that run natively on devices, and
-				which can be distributed through the Apple App Store and the Google Play Store <br /><br />
-				<a href="https://www.kendoui.com/" data-rel="external"> Kendo UI Mobile </a>
-				is Telerik’s toolset of easy-to-use jQuery mobile widgets and built-in rich components for fast mobile application development. Kendo UI Mobile empowers developers to build native-like mobile apps for iPhone, Android and Blackberry, and deliver unmatched user experience without any extra coding.
 
-			</div>
-		</div>
+		<ul data-role="listview" data-style="inset">
+            <li>
+                <p>
+        			Telerik is a market-leading provider of end-to-end solutions for
+        			<a href="http://www.telerik.com/developer-productivity-tools.aspx" data-rel="external">application development</a>,
+        			<a href="http://www.telerik.com/automated-testing-tools.aspx" data-rel="external">automated testing</a>
+        			<a href="http://www.telerik.com/team-productivity-tools.aspx" data-rel="external">agile project management</a>,
+        			<a data-rel="external" href="http://www.sitefinity.com/">content management</a> and
+        			<a data-rel="external" href="http://www.icenium.com/">cloud-based cross-platform mobile development.</a>
+                </p>
+            </li>
+            <li>
+                <p>
+        			Telerik’s mission is to make software development easier and more enjoyable by providing to technical and business professionals software tools, which help them maximize their productivity and "deliver more than expected” every day. <br />This mobile app was built with Icenium
+        			and Kendo UI Mobile.
+                </p>
+
+                <p>
+        			<a href="https://www.icenium.com/" data-rel="external">Icenium</a> is the industry’s first Integrated Cloud Environment (ICE)
+        			which eliminates the complexity associated with cross-platform mobile
+        			development for iOS and Android. Icenium lets
+        			mobile and web developers use web languages they already know – HTML5,
+        			CSS3 and JavaScript – to build apps that run natively on devices, and
+        			which can be distributed through the Apple App Store and the Google Play Store.
+                </p>
+
+                <p>
+        			<a href="https://www.kendoui.com/" data-rel="external"> Kendo UI Mobile </a>
+        			is Telerik’s toolset of easy-to-use jQuery mobile widgets and built-in rich components for fast mobile application development. Kendo UI Mobile empowers developers to build native-like mobile apps for iPhone, Android and Blackberry, and deliver unmatched user experience without any extra coding.
+                </p>
+            </li>
+        </ul>
+
 	</div>
     
     <!-- ######################### -->
@@ -362,9 +353,9 @@
         </div>
     
         <ul data-role="listview" data-style="inset" id="usersettings-form">
-            <li><label for="txtUserName">Name:</label> <input type="text" id="txtUserName" required/></li>
-            <li><label for="txtEmail">Email:</label> <input type="email" id="txtEmail" required/></li>
-            <li><label for="txtEmail">Anonymous:</label> <input type="checkbox" id="chkIsAnonymous" data-role="switch" />
+            <li><label for="txtUserName">Name</label> <input type="text" id="txtUserName" required/></li>
+            <li><label for="txtEmail">Email</label> <input type="email" id="txtEmail" required/></li>
+            <li><label for="chkIsAnonymous">Anonymous</label> <input type="checkbox" id="chkIsAnonymous" data-role="switch" /></li>
         </ul>
         <a data-click="SaveUserSettings" id="modalview-usersettings-button" data-role="button" class="submit-button">Save</a>
         <span id="usersettings-form-status"></span>        
