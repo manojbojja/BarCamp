@@ -16,7 +16,16 @@
     margin: 0 auto 20pt auto;
 }
 
-
+.submit-button {
+    display: block;
+    width: 50%;
+    margin: 15pt auto 5pt auto;
+}
+#usersettings-form-status {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
 
 
 /* Retina Support */
