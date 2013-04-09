@@ -381,8 +381,8 @@
 
 .km-root .km-view .km-content .km-button {
     background-color: rgb(255, 138, 0);
-    border-color: rgb(255, 255, 255);
-    color: rgb(47, 33, 82);
+    border-color: #f59d33;
+    color: #561259;
     text-shadow: none;
 }
 

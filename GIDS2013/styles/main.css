@@ -80,6 +80,12 @@
 }
 
 
+#txtReview {
+    display: block;
+    float: none;
+    width: 100%;
+}
+
 /* Retina Support */
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2),

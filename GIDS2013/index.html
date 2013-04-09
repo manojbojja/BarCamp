@@ -202,20 +202,27 @@
     <!-- ######################### -->
     <!-- Session/Speaker Review View  -->
 
-	<div data-role="view" id ="reviewSessionView" data-title="Review" data-layout="app-layout">
-
-		<div id="sessionRName">
-			Review Comment
-		</div>
-		<textarea id="txtReview"  rows="8"></textarea>
-		<br/>
-		<div id="ratingSession"></div>
-		<h3>
-			Your Rating: <span id="ratingSession-rating">not set</span>
-		</h3>
-
-		<br/><br/>
-		<a data-click="submitReview" data-role="button" data-align="center" class="submit-button">Submit</a>
+	<div data-role="view" id ="reviewSessionView" data-title="Review" data-layout="app-layout">        
+        <ul data-role="listview" data-style="inset"  data-type="group">
+            <li>Write Review Comment:
+                <ul>
+                    <li>
+                        <textarea id="txtReview"  rows="4"></textarea>
+                    </li>
+                </ul>
+            </li>
+            <li>Rate the Session:
+                <ul style="text-align: center;">
+                    <li>
+                        <div id="ratingSession"></div>
+                    </li>
+                    <li>
+                        Your Rating: <span id="ratingSession-rating">not set</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+		<p><a data-click="submitReview" data-role="button" data-align="center" class="submit-button">Submit</a><br /></p>
 	</div>
     
     
