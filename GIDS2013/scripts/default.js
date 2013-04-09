@@ -21,7 +21,7 @@ tweets = new kendo.data.DataSource(
 			type: "GET",
 			dataType: "jsonp",
 			data: {
-					q: "#Nasscom"
+					q: "#gids"
 				}
 		}
 		},
