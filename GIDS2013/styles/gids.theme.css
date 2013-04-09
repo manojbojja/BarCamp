@@ -381,7 +381,22 @@
 
 .km-root .km-view .km-content .km-button {
     background-color: rgb(255, 138, 0);
-    border-color: rgb(255, 255, 255);
-    color: rgb(47, 33, 82);
+    border-color: #f59d33;
+    color: #561259;
     text-shadow: none;
+}
+
+.km-root .km-list input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="image"]):not([type="checkbox"]):not([type="radio"]):not(.k-input):not(.k-button), 
+.km-root .km-list select:not([multiple]), 
+.km-root .km-list .k-dropdown-wrap, .km-ios .km-list textarea {
+    color: #fff;
+}
+
+.km-group-title .km-text {
+    text-shadow: none;
+}
+
+.km-content p {
+    margin-left: 0;
+    margin-right: 0;
 }

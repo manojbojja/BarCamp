@@ -20,6 +20,7 @@
     display: block;
     width: 50%;
     margin: 15pt auto 5pt auto;
+    text-align: center;
 }
 #usersettings-form-status {
     display: block;
@@ -31,13 +32,13 @@
 /* SpeakerDetails */
 #speakerName h2 {
     float: left;
-    font-size: 1.1em;
+    font-size: 1em;
     margin: 0 0 0 .3em;
 }
 #speakerName h2 span {
     display: block;
     clear: both;
-    font-size: 1.5em;
+    font-size: 1.4em;
     margin: .1em 0 0 0;
 }
 #speakerName img {
@@ -55,6 +56,44 @@
     color: #ffa73e;
 }
 
+
+.session-title {
+    display: block;
+    font-size: 1em;
+    line-height: 1.1em;
+    margin-top: .3em;
+    margin-bottom: .3em;
+}
+.session-detail {
+    display: block;
+    font-size: .7em;
+    line-height: 1.1em;
+    margin-bottom: .3em;
+    color: #e0b3d2;
+}
+.session-time {
+    display: block;
+    text-align: right;
+    font-size: .7em;
+    line-height: 1.1em;
+    margin-bottom: .3em;
+}
+
+
+#txtReview {
+    display: block;
+    float: none;
+    width: 100%;
+}
+
+#about p {
+    font-size: .8em;
+    font-weight: normal;
+}
+#about p a {
+    color: #ffa73e;
+    text-decoration: none;
+}
 
 /* Retina Support */
 
