@@ -805,8 +805,8 @@ function initMap() {
     
     var mapOptions = {
         sensor: true,
-        center: new google.maps.LatLng(28.547222200000000000,77.250833300000070000),
-        zoom: 10,
+        center: new google.maps.LatLng(13.014421, 77.564448),
+        zoom: 16,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         streetViewControl: false,
         mapTypeControl: true,
@@ -823,10 +823,10 @@ function initMap() {
     map = new google.maps.Map($("#map_canvas")[0], mapOptions);
 
     destinationPoint = new google.maps.Marker({
-        position: new google.maps.LatLng(28.547222200000000000,77.250833300000070000),
+        position: new google.maps.LatLng(13.014421, 77.564448),
         color: "green",
         map: map, 
-        title: "that Conference"
+        title: "Tata Institute, IISC, Bangalore"
     });
     
     sourcePoint = new google.maps.Marker({
