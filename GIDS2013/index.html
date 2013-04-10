@@ -282,9 +282,9 @@
     <!-- Twitter Template -->
     <script id="tweetTemplate" type="text/x-kendo-template">
 		<div class="tweets">
-			<img class="pullImage" src="#= profile_image_url#" alt="#= from_user #" />#= text #        
-			<div class="metadata">
-				<a class="sublink" target="_blank" href="http://twitter.com/\\#!/#= from_user #/status/#= id_str #" rel="nofollow">#= kendo.toString(new Date(Date.parse(created_at)), "dd MMM HH:mm") #</a>
+			<img class="twitter-img" src="#= profile_image_url#" alt="#= from_user #" />#= text #        
+			<div class="twit-meta">
+				<a class="sublink" target="_blank" href="http://twitter.com/\\#!/#= from_user #/status/#= id_str #" rel="nofollow">#= kendo.toString(new Date(Date.parse(created_at)), "dd MMM HH:mm") #</a> | 
 				<a class="sublink" href="http://twitter.com/#= from_user #" rel="nofollow">#= from_user #</a>
 			</div>
 		</div>
