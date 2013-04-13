@@ -16,14 +16,19 @@ tweets = new kendo.data.DataSource(
 
 	transport: {
 			read: {
-			url: "http://search.twitter.com/search.json",
-			contentType: "application/json; charset=utf-8",
-			type: "GET",
-			dataType: "jsonp",
-			data: {
-					q: "#gids"
-				}
-		}
+    			url: "http://search.twitter.com/search.json",
+    			contentType: "application/json; charset=utf-8",
+    			type: "GET",
+    			dataType: "jsonp",
+		    },
+        parameterMap: function(options) {
+                        return {
+                            q: "#gids",
+                            page: options.page,
+                            count: options.pageSize,
+                            since_id: options.since_id //additional parameters sent to the remote service
+                        };
+                    }
 		},
 	schema: {
 			data: "results",
@@ -42,6 +47,24 @@ function showTweets(e) {
 	//	template:template1
    
 	//});
+    /*data-source="tweets"
+			data-endlessScroll="true" 
+			data-template="tweetTemplate"
+			data-role="listview"
+			data-style="inset"
+    */
+    $("#tweetList").kendoMobileListView({
+            dataSource: tweets,
+            pullToRefresh: true,
+            appendOnRefresh: true,
+            template: $("#tweetTemplate").text(),
+            pullParameters: function(item) {
+                return {
+                    since_id: item.id_str,
+                    page: 1
+                };
+            }
+        });
     
 }
 
@@ -682,12 +705,15 @@ function contains(a, obj) {
 
 $(document).ready(function () {
     
-    $("#usersettings-form").kendoValidator();
+     $("#ratingSession-rating").text("Not Set")
     
-    $('#ratingSession').ratings(5).bind('ratingchanged', function (event, data) {
-        $('#ratingSession-rating').text(data.rating);
-    });
-
+    $("select").change(function(){
+        //console.log("fired")
+        //console.log($("#selRating").val())
+        $("#ratingSession-rating").text($("#selRating").val());
+    })
+    
+    
 });
 
 
@@ -762,9 +788,9 @@ function submitReview(e)
             }
         });
         
-    dataSource.add({ SessionID: currentSessionInView, Rating: $("#ratingSession-rating").text(), UserEmail: email});
+    dataSource.add({ SessionID: currentSessionInView, Rating: $("#selRating").val(), UserEmail: email});
     dataSource.sync();
-    var reviewItem = {'sessionRatingid':null,'sessionId':currentSessionInView, 'rating':$("#ratingSession-rating").text(),'review': $("#txtReview").val()}
+    var reviewItem = {'sessionRatingid':null,'sessionId':currentSessionInView, 'rating': $("#selRating").val(),'review': $("#txtReview").val()}
     if (!localStorage.getItem("review_session_"+currentSessionInView)) 
     {
         localStorage.setItem("review_session_"+currentSessionInView, JSON.stringify(reviewItem))
@@ -898,17 +924,24 @@ function OnSessionReviewFormLoad(e)
     var userReview = null;
     userReview = localStorage.getItem("review_session_"+currentSessionInView)
     var reviewTextBox = $("#txtReview")
-    var ratingElement = $("#ratingSession-rating")
+    var ratingElement = $("#selRating")
+    var ratingValue = $("#ratingSession-rating");
     
     if (userReview != null) 
     {
         userReview = JSON.parse(userReview);
         reviewTextBox.text(userReview.review);
-        ratingElement.text(userReview.rating);
+        ratingElement.val(userReview.rating);
+        ratingValue.text(userReview.rating);
+        $("#btnSubmitReview").css("visibility","hidden")
+        $("#submitReviewMessage").text("Note: You have already reviewed this session")
     }   
     else
     {
         reviewTextBox.text('');
-        ratingElement.text('');
+        ratingElement.val(5);
+        ratingValue.text(5);
+         $("#btnSubmitReview").css("visibility","visible")
+        $("#submitReviewMessage").text("")
     }
 }

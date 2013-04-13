@@ -21,7 +21,7 @@
     <!-- Application Views ################################################## -->
     
     
-    <!-- ######################### -->
+    <!-- ###########agenda############## -->
     <!-- Home View ############### -->
     
     <div data-role="view" id="home" data-title="GIDS 2013" data-layout="app-layout" data-show="OnHomeViewLoad">
@@ -126,7 +126,7 @@
 				<a href="#home" data-icon="home">Home</a>
                 <a href="#sessions" data-icon="grid">Sessions</a>
 				<a href="#speakers" data-icon="contacts">Speakers</a>
-				<a href="#meView" data-icon="clock">My Agenda</a>
+				<a href="#myagenda" data-icon="clock">My Agenda</a>
 				<a href="#tweetView" data-icon="comment">Twitter</a>
 			</div>
 		</div>
@@ -213,9 +213,15 @@
             </li>
             <li>Rate the Session
                 <ul style="text-align: center;">
-                    <li>
-                        <div id="ratingSession"></div>
-                        
+                    <li style="height:100px">
+                        <!-- <div id="ratingSession"></div> -->
+                        <select id="selRating" style="font-size:20px;border:1px solid white">
+                            <option value="5">Excellent</option>
+                            <option value="4">Good</option>
+                            <option value="3">Fair</option>
+                            <option value="2">Ok</option>
+                            <option value="1">Poor</option>
+                        </select>
                     </li>
                     <li>
                         Your Rating: <span id="ratingSession-rating">not set</span>
@@ -223,7 +229,9 @@
                 </ul>
             </li>
         </ul>
-		<p><a data-click="submitReview" data-role="button" data-align="center" class="submit-button">Submit</a><br /></p>
+		<p><a id="btnSubmitReview" data-click="submitReview" data-role="button" data-align="center" class="submit-button">Submit</a><br />
+            <span id="submitReviewMessage"></span>
+        </p>
 	</div>
     
     
@@ -269,11 +277,7 @@
 	<div data-role="view" id="tweetView" data-title="Tweets" data-show="showTweets" data-layout="app-layout">
 
 		<ul id="tweetList"
-			data-source="tweets"
-			data-endlessScroll="true" 
-			data-template="tweetTemplate"
-			data-role="listview"
-			data-style="inset"
+			
 			>
 		</ul>
 
@@ -375,7 +379,7 @@
 		<header data-role="header">
 			<div data-role="navbar">
 				<a data-role="backbutton" data-align="left">Back</a>
-                <a data-role="button" data-align="right" data-icon="info"></a>
+                <a data-role="button" href="#meView" data-align="right" data-icon="info"></a>
 				<span data-role="view-title"></span>
 			</div>
 		</header>
@@ -385,7 +389,7 @@
 				<a href="#home" data-icon="home">Home</a>
 				<a href="#sessions" data-icon="grid">Sessions</a>
 				<a href="#speakers" data-icon="contacts">Speakers</a>
-				<a href="#meView" data-icon="clock">My Agenda</a>
+				<a href="#myagenda" data-icon="clock">My Agenda</a>
 				<a href="#tweetView" data-icon="comment">Twitter</a>
 			</div>
 		</div>
@@ -409,7 +413,7 @@
 				<a href="#home" data-icon="home">Home</a>
 				<a href="#sessions" data-icon="grid">Sessions</a>
 				<a href="#speakers" data-icon="contacts">Speakers</a>
-				<a href="#meView" data-icon="clock">My Agenda</a>
+				<a href="#myagenda" data-icon="clock">My Agenda</a>
 				<a href="#tweetView" data-icon="comment">Twitter</a>
 			</div>
 		</div>
