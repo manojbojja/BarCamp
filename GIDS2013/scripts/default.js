@@ -707,13 +707,6 @@ $(document).ready(function () {
     
      $("#ratingSession-rating").text("Not Set")
     
-    $("select").change(function(){
-        //console.log("fired")
-        //console.log($("#selRating").val())
-        $("#ratingSession-rating").text($("#selRating").val());
-    })
-    
-    
 });
 
 
@@ -724,17 +717,6 @@ function savePersonalDetailsfn()
     settings.email = $('#email').val();
     settings.anonymous = $('#isAnonymous').data("kendoMobileSwitch").check();
     localStorage.setItem("userSettings", JSON.stringify(settings));
-    
-    /*var personalDetails = new Array();
-    var obj = {'name': $('#name').val()};
-    personalDetails.push(obj);
-    var obj1 = {'email':$('#email').val() };
-    personalDetails.push(obj1);
-    var obj2 = {'isAnonymous': $('#isAnonymous').data("kendoMobileSwitch").check()}
-    personalDetails.push(obj2);
-    
-    localStorage['myDetails'] = JSON.stringify(personalDetails);
-    */
 }
 
 
@@ -746,41 +728,78 @@ function checkPersonalSettings()
     $('#email').val(settings.email);
     $('#isAnonymous').data("kendoMobileSwitch").check(settings.anonymous);
     $('#savePersonalDetails').text('Update');
-    
-    /*if (localStorage['myDetails'])
-    {
-        
-        var personalDetails = JSON.parse(localStorage['myDetails']);
-         
-        $('#name').val(personalDetails[0].name);
-        $('#email').val(personalDetails[1].email);
-        $('#isAnonymous').data("kendoMobileSwitch").check(personalDetails[2].isAnonymous);
-        $('#savePersonalDetails').text('Update');
-    }*/
+
 }
 
+var currentSessionInView;
 
 function submitReview(e)
 {
-   currentSessionInView;
+     
+    var networkState = navigator.network.connection.type;
+    if(networkState.toLowerCase() == "none")
+    {
+        alert("No network connection");
+        return;
+    }
     
    var settings = JSON.parse(localStorage.getItem("userSettings")); 
    var email = settings.email;
+     var comments = $("#txtReview").val();
     
-    var sessionRating = kendo.data.Model.define({
+    
+    // Convert the form into an object 
+    var data = { SessionID: currentSessionInView, Rating: currentRating, UserEmail: email}; 
+    
+    // JSONify the data 
+    var data = JSON.stringify(data);
+    
+    // Post it 
+    $.ajax({ 
+    	type: "POST", 
+    	contentType: "application/json", 
+    	url: "http://localhost:33514/Services/GIDSEventService.svc" + "/SessionRatings", 
+    	data: data,
+    	dataType: "json", 
+    	success: function(){
+                 var reviewItem = {'sessionRatingid':null,'sessionId':currentSessionInView, 'rating': currentRating,'review': comments}
+    
+                if (!localStorage.getItem("review_session_"+currentSessionInView)) 
+                {
+                    localStorage.setItem("review_session_"+currentSessionInView, JSON.stringify(reviewItem))
+                }
+                
+                $("#btnRate").css("visibility","hidden")
+                $("#btnSubmitReview").css("visibility","hidden")
+                $("#submitReviewMessage").text("Your rating has been recorded.")
+        },
+    	error:function(XMLHttpRequest, textStatus, errorThrown) {
+    			console.log("error : " + errorThrown)
+    			alert("error");
+    		}
+    
+    }); 
+
+    
+    /*var sessionRating = kendo.data.Model.define({
             id: "SessionRatingID"
         })
 
         dataSource = new kendo.data.DataSource({
+            type:"odata",
             transport: {
                 read: {
-                    url: "http://localhost:15684/api/SessionRatings",
-                    dataType: "json"
+                    //url:baseURL + "/SessionRatings",
+                    //url: "http://localhost:15684/api/SessionRatings",
+                    url:"http://localhost:33514/Services/GIDSEventService.svc/SessionRatings",
+                    dataType: "json",
                 },
                 create: {
-                    url: "http://localhost:15684/api/SessionRatings",
+                    //url:baseURL + "/SessionRatings",
+                    //url: "http://localhost:15684/api/SessionRatings",
+                    url:"http://localhost:33514/Services/GIDSEventService.svc/SessionRatings",
                     type: "POST",
-                    dataType: "json"
+                    dataType: "json",
                 }
             },
             schema: {
@@ -788,23 +807,12 @@ function submitReview(e)
             }
         });
         
-    dataSource.add({ SessionID: currentSessionInView, Rating: $("#selRating").val(), UserEmail: email});
-    dataSource.sync();
-    var reviewItem = {'sessionRatingid':null,'sessionId':currentSessionInView, 'rating': $("#selRating").val(),'review': $("#txtReview").val()}
-    if (!localStorage.getItem("review_session_"+currentSessionInView)) 
-    {
-        localStorage.setItem("review_session_"+currentSessionInView, JSON.stringify(reviewItem))
-    }
+   
+    dataSource.add();
     
-    var item = {'review': $("#txtReview").val(),'rating':$("#ratingSession-rating").text(),};
-        
-    if (!localStorage.myReview) 
-    {
-        localStorage.myReview = JSON.stringify([]);
-    }
-    var myreview = JSON.parse(localStorage["myReview"]);          
-    myreview.push(item);    
-    localStorage["myReview"] = JSON.stringify(myreview);            
+    dataSource.sync();
+    */
+   
 }
 
   
@@ -924,24 +932,59 @@ function OnSessionReviewFormLoad(e)
     var userReview = null;
     userReview = localStorage.getItem("review_session_"+currentSessionInView)
     var reviewTextBox = $("#txtReview")
-    var ratingElement = $("#selRating")
-    var ratingValue = $("#ratingSession-rating");
+    var ratingValue = $("#rating-value");
     
     if (userReview != null) 
     {
         userReview = JSON.parse(userReview);
         reviewTextBox.text(userReview.review);
-        ratingElement.val(userReview.rating);
-        ratingValue.text(userReview.rating);
+        ratingValue.text(ratingText[userReview.rating-1]);
+        $("#btnRate").css("visibility","hidden")
         $("#btnSubmitReview").css("visibility","hidden")
         $("#submitReviewMessage").text("Note: You have already reviewed this session")
     }   
     else
     {
+        currentRating=-1;
         reviewTextBox.text('');
-        ratingElement.val(5);
-        ratingValue.text(5);
-         $("#btnSubmitReview").css("visibility","visible")
+        ratingValue.text("Not Set");
+        $("#btnRate").css("visibility","visible")
+        $("#btnSubmitReview").css("visibility","visible")
         $("#submitReviewMessage").text("")
     }
+}
+
+var ratingText = ["Bad","Poor","Regular","Good","Excellent"];
+
+var currentRating = -1;
+
+function OnExcellentClick()
+{
+    SetRating(5)
+}
+
+function OnGoodClick()
+{
+    SetRating(4)
+}
+
+function OnRegularClick()
+{
+    SetRating(3)
+}
+
+function OnPoorClick()
+{
+    SetRating(2)
+}
+
+function OnBadClick()
+{
+    SetRating(1)
+}
+
+function SetRating(v, d)
+{
+    currentRating=v;
+    $("#rating-value").text(ratingText[v-1]);
 }

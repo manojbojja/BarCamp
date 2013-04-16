@@ -213,25 +213,31 @@
             </li>
             <li>Rate the Session
                 <ul style="text-align: center;">
-                    <li style="height:100px">
-                        <!-- <div id="ratingSession"></div> -->
-                        <select id="selRating" style="font-size:20px;border:1px solid white">
-                            <option value="5">Excellent</option>
-                            <option value="4">Good</option>
-                            <option value="3">Fair</option>
-                            <option value="2">Ok</option>
-                            <option value="1">Poor</option>
-                        </select>
+                    <li>
+                        Your Rating: <span id="rating-value">not set</span>
                     </li>
                     <li>
-                        Your Rating: <span id="ratingSession-rating">not set</span>
+                        <a id="btnRate"
+                            data-role="button"
+                            data-rel="actionsheet"
+                            href="#inboxActions">Rate</a>
+                        <span id="submitReviewMessage"></span>
                     </li>
                 </ul>
             </li>
         </ul>
-		<p><a id="btnSubmitReview" data-click="submitReview" data-role="button" data-align="center" class="submit-button">Submit</a><br />
-            <span id="submitReviewMessage"></span>
+		<p><a id="btnSubmitReview" data-click="submitReview" data-role="button" data-align="center" class="submit-button">Submit</a>
+            <br />
+            
         </p>
+         <ul data-role="actionsheet" id="inboxActions"  data-popup='{"direction": "left"}'>
+            <li class="km-actionsheet-title">Session Rating:</li>
+            <li><a href="#" data-action="OnExcellentClick">Excellent</a></li>
+            <li><a href="#" data-action="OnGoodClick">Good</a></li>
+            <li><a href="#" data-action="OnRegularClick">Regular</a></li>
+            <li><a href="#" data-action="OnPoorClick">Poor</a></li>
+            <li><a href="#" data-action="OnBadClick">Bad</a></li>
+        </ul>
 	</div>
     
     
