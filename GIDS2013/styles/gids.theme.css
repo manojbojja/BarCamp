@@ -382,7 +382,7 @@
 .km-root .km-view .km-content .km-button {
     background-color: rgb(255, 138, 0);
     border-color: #f59d33;
-    color: #561259;
+    color: #251a41;
     text-shadow: none;
 }
 
@@ -399,4 +399,60 @@
 .km-content p {
     margin-left: 0;
     margin-right: 0;
+}
+
+
+
+
+.km-ios .km-actionsheet-wrapper,
+.km-ios .km-popup .k-list-container {
+    background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(0, #272451),color-stop(1, #800160));
+    background-image: -moz-linear-gradient(50% 0,50% 100%,#272451,#800160);
+    background-image: -ms-linear-gradient(50% 0,50% 100%,#272451,#800160);
+}
+
+.km-ios .km-popup .k-item, .km-ios .km-actionsheet > li > a {
+    color: #fff;
+    text-shadow: none;
+    background-color: #2F2152;
+}
+
+
+.km-ios .km-popup .k-state-hover, 
+.km-ios .km-popup .k-state-focused, 
+.km-ios .km-popup .k-state-selected, 
+.km-ios .km-actionsheet > li > a:active, 
+.km-ios .km-actionsheet > li > a:hover, 
+.km-ios li.km-actionsheet-cancel > a {
+    background-color: rgb(255, 138, 0);
+    color: #251a41;
+    text-shadow: none;
+}
+
+.km-android .km-actionsheet, 
+.km-android .km-popup .k-list-container {
+    background-image: -webkit-gradient(linear,50% 0,50% 100%,color-stop(0, #272451),color-stop(1, #800160));
+    background-image: -moz-linear-gradient(50% 0,50% 100%,#272451,#800160);
+    background-image: -ms-linear-gradient(50% 0,50% 100%,#272451,#800160);
+}
+
+.km-android .km-actionsheet-title {
+    color: rgb(255, 138, 0);
+    border-color: rgb(255, 138, 0);
+}
+
+
+.km-android .km-popup .k-state-focused, 
+.km-android .km-popup .k-state-selected, 
+.km-android .km-actionsheet > li > a:focus, 
+.km-android .km-actionsheet > li > a:active {
+    background-color: rgb(255, 138, 0);
+    color: #251a41;
+    text-shadow: none;
+}
+
+.km-android .km-actionsheet-title,
+.km-android .km-popup .k-item,
+.km-android .km-actionsheet > li > a {
+    border-color: #2F2152;
 }

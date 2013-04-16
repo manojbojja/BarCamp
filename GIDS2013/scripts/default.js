@@ -769,8 +769,8 @@ function submitReview(e)
                     localStorage.setItem("review_session_"+currentSessionInView, JSON.stringify(reviewItem))
                 }
                 
-                $("#btnRate").css("visibility","hidden")
-                $("#btnSubmitReview").css("visibility","hidden")
+                $("#btnRate").css("display","none")
+                $("#btnSubmitReview").css("display","none")
                 $("#submitReviewMessage").text("Your rating has been recorded.")
         },
     	error:function(XMLHttpRequest, textStatus, errorThrown) {
@@ -939,8 +939,8 @@ function OnSessionReviewFormLoad(e)
         userReview = JSON.parse(userReview);
         reviewTextBox.text(userReview.review);
         ratingValue.text(ratingText[userReview.rating-1]);
-        $("#btnRate").css("visibility","hidden")
-        $("#btnSubmitReview").css("visibility","hidden")
+        $("#btnRate").css("display","none")
+        $("#btnSubmitReview").css("display","none")
         $("#submitReviewMessage").text("Note: You have already reviewed this session")
     }   
     else
@@ -948,8 +948,8 @@ function OnSessionReviewFormLoad(e)
         currentRating=-1;
         reviewTextBox.text('');
         ratingValue.text("Not Set");
-        $("#btnRate").css("visibility","visible")
-        $("#btnSubmitReview").css("visibility","visible")
+        $("#btnRate").css("display","block")
+        $("#btnSubmitReview").css("display","block")
         $("#submitReviewMessage").text("")
     }
 }

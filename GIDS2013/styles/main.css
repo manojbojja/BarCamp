@@ -86,6 +86,12 @@
     width: 100%;
 }
 
+
+#submitReviewMessage {
+    display: block;
+    line-height: 1.2em;
+}
+
 #about p {
     font-size: .8em;
     font-weight: normal;
