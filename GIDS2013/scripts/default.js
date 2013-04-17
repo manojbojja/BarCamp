@@ -4,7 +4,8 @@
 document.addEventListener("deviceready", onDeviceReady, false);
 
  var speakerDetailsData;
-var baseURL = "http://pugdevconservice.telerikindia.com/EventNetworkingService.svc";
+//var baseURL = "http://pugdevconservice.telerikindia.com/EventNetworkingService.svc";
+var baseURL = "http://gids2013.telerikindia.com/EventNetworkingService.svc";
   var c;
 var dataReadFromLocalStorage;    
 
@@ -23,7 +24,7 @@ tweets = new kendo.data.DataSource(
 		    },
         parameterMap: function(options) {
                         return {
-                            q: "#gids",
+                            q: "#gids13",
                             page: options.page,
                             count: options.pageSize,
                             since_id: options.since_id //additional parameters sent to the remote service
@@ -230,7 +231,6 @@ function showMe(e)
  function speakerDetailsShow(e) {
               var view = e.view;
               var uid = e.view.params.uid;
-              console.log(uid);
               var template = kendo.template($("#speakerDetailsTemplate").text());
              speakerDetailsData = new kendo.data.DataSource(
                 {
@@ -473,7 +473,6 @@ var currentSessionInView;
 function sessionDetailsShow(e)
 {
              
-            console.log("hello");
             var view = e.view;
             var item;
             currentSessionInView = e.view.params.sid;
@@ -592,19 +591,19 @@ function functionToShareOnFacebook(e) {
 
 function functionToShareOnTwitter(e) {
     
-                console.log("share on Twitter");
+
      }
 
 
 function functionToShareOnLinkedin(e) {
     
-                console.log("share on Linkedin");
+                
             }
 
 var fsaveDataLocally= function saveDataLocally(e)
  {   
     
-     console.log("this is session"); 
+     
      sessionDetailsData.fetch(function() {
           
          item = sessionDetailsData.at(0);  
@@ -615,19 +614,17 @@ var fsaveDataLocally= function saveDataLocally(e)
           var myagenda = JSON.parse(localStorage["myagenda"]);
           if(contains(myagenda,item))
           {
-              console.log("I am IF");
-              
+                            
           }
           else
           {
-             console.log("enter");
+             
               myagenda.push(item);    
               localStorage["myagenda"] = JSON.stringify(myagenda);
               $("#saveButton").find(".km-icon").removeClass("km-add").addClass("km-trash");
               $('#saveButton').unbind('click', fsaveDataLocally);   
               $('#saveButton').bind('click', fremoveDataLocally);     
-              console.log("exit");
-             
+                           
           }       
           
           
@@ -663,13 +660,13 @@ var fremoveDataLocally= function removeDataLocally(e)
                   
             myagenda.splice(index,1);
             localStorage["myagenda"] = JSON.stringify(myagenda); 
-             console.log("1");
+
             $("#saveButton").find(".km-icon").removeClass("km-trash").addClass("km-add");
-          console.log("2");
+          
             $('#saveButton').unbind('click', fremoveDataLocally);  
-           console.log("3");
+           
             $('#saveButton').bind('click',fsaveDataLocally ); 
-            console.log("final");
+            
        
               
         
@@ -731,7 +728,6 @@ function checkPersonalSettings()
 
 }
 
-var currentSessionInView;
 
 function submitReview(e)
 {
@@ -749,16 +745,17 @@ function submitReview(e)
     
     
     // Convert the form into an object 
-    var data = { SessionID: currentSessionInView, Rating: currentRating, UserEmail: email}; 
+    var data = { SessionID: currentSessionInView,ReviewComment:comments,Rating: currentRating, UserEmail: email}; 
     
     // JSONify the data 
     var data = JSON.stringify(data);
+    
     
     // Post it 
     $.ajax({ 
     	type: "POST", 
     	contentType: "application/json", 
-    	url: "http://localhost:33514/Services/GIDSEventService.svc" + "/SessionRatings", 
+    	url: baseURL + "/SessionRatings", 
     	data: data,
     	dataType: "json", 
     	success: function(){
@@ -779,7 +776,7 @@ function submitReview(e)
     		}
     
     }); 
-
+    
     
     /*var sessionRating = kendo.data.Model.define({
             id: "SessionRatingID"
@@ -790,28 +787,35 @@ function submitReview(e)
             transport: {
                 read: {
                     //url:baseURL + "/SessionRatings",
-                    //url: "http://localhost:15684/api/SessionRatings",
-                    url:"http://localhost:33514/Services/GIDSEventService.svc/SessionRatings",
+                    //url: "http://localhost:33515/Services/GIDSEventService.svc/SessionRatings",
+                    url:"http://gids2013.telerikindia.com/NetworkingDataContextService.svc/SessionRatings",
                     dataType: "json",
                 },
                 create: {
                     //url:baseURL + "/SessionRatings",
-                    //url: "http://localhost:15684/api/SessionRatings",
-                    url:"http://localhost:33514/Services/GIDSEventService.svc/SessionRatings",
+                    //url: "http://localhost:33515/Services/GIDSEventService.svc/SessionRatings",
+                    url:"http://gids2013.telerikindia.com/NetworkingDataContextService.svc/SessionRatings",
                     type: "POST",
                     dataType: "json",
                 }
             },
             schema: {
+                 data: function(data) {
+                    return data.value;
+                },
+                total: function(data) {
+                    return data['odata.count'];
+
+                },
                 model: sessionRating
             }
         });
         
-   
-    dataSource.add();
+   console.log(data);
+    dataSource.add(data);
     
     dataSource.sync();
-    */
+   */
    
 }
 
@@ -869,7 +873,7 @@ function initMap() {
         title:"You"
     });
 
-    directionsDisplay.setMap(map);
+    //directionsDisplay.setMap(map);
 }
 
 function onGeolocationSuccess(position) {
