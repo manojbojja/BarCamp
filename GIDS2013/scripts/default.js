@@ -17,10 +17,10 @@ tweets = new kendo.data.DataSource(
 
 	transport: {
 			read: {
-    			url: "http://search.twitter.com/search.json",
+    			url: "http://demos.kendoui.com/service/Twitter/Search", // the remove service url
+                dataType: "jsonp", // JSONP (JSON with padding) is required for cross-domain AJAX  
     			contentType: "application/json; charset=utf-8",
-    			type: "GET",
-    			dataType: "jsonp",
+    			type: "GET"
 		    },
         parameterMap: function(options) {
                         return {
