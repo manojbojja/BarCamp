@@ -5,7 +5,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
  var speakerDetailsData;
 //var baseURL = "http://pugdevconservice.telerikindia.com/EventNetworkingService.svc";
-var baseURL = "http://gids2013.telerikindia.com/EventNetworkingService.svc";
+var baseURL = "http://gids2013.telerikindia.com/NetworkingDataContextService.svc";
   var c;
 var dataReadFromLocalStorage;    
 
@@ -105,6 +105,7 @@ var allSessionData = new kendo.data.DataSource(
                             data: {
                                 Accept: "application/json"
                             }
+                            
                         }
                     },
                     serverfiltering: false,
