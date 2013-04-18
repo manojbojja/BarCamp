@@ -5,7 +5,7 @@ document.addEventListener("deviceready", onDeviceReady, false);
 
  var speakerDetailsData;
 //var baseURL = "http://pugdevconservice.telerikindia.com/EventNetworkingService.svc";
-var baseURL = "http://gids2013.telerikindia.com/NetworkingDataContextService.svc";
+var baseURL = "http://gids2013.telerikindia.com/EventNetworkingService.svc";
   var c;
 var dataReadFromLocalStorage;    
 
