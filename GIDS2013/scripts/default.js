@@ -78,7 +78,7 @@ function showTweets(e) {
                         read: {
                             // the remote service url
 
-                            url: baseURL+"/SessionAttendees?$expand=UserProfile,UserProfile/UserURLs&$filter=AttendeeType eq 11&$select=AttendeeType,UserProfile/UserId,UserProfile/FirstName,UserProfile/LastName,UserProfile/UserURLs/URL",
+                            url: baseURL+"/SessionAttendees?$expand=UserProfile,UserProfile/UserURLs&$filter=AttendeeType eq 11&$select=AttendeeType,UserProfile/UserId,UserProfile/FirstName,UserProfile/LastName,UserProfile/UserURLs/URL&$orderby=UserProfile/FirstName",
                             dataType: "jsonp",
 
                             data: {
@@ -295,13 +295,15 @@ function tracksListViewClick(e)
                     error: function() { console.log(arguments); }
                 });
     //sessionsByTracksData.fetch();
-    var template1 = kendo.template($("#filteredSessionsTemplate").html());
+    var template = kendo.template($("#filteredSessionsTemplate").html());
+    var listview = $("#sessioninTrackList").data("kendoMobileListView");
+    if(listview)listview.destroy();
     $("#sessioninTrackList").kendoMobileListView({
     dataSource: sessionsByTracksData,
-    template:template1,
+    template:template,
     style:"inset",
-    endlessScroll:true
-   
+
+    loadMore:true
   });
     
 }
@@ -376,13 +378,14 @@ function venueListViewClick(e)
                 });
     
  
-    var template1 = kendo.template($("#filteredSessionsTemplate").text());
+    var template = kendo.template($("#filteredSessionsTemplate").text());
+    var listview = $("#sessioninVenueList").data("kendoMobileListView");
+    if(listview)listview.destroy();
     $("#sessioninVenueList").kendoMobileListView({
     dataSource: sessionsByVenueData,
-    template:template1,
+    template:template,
      style:"inset",
-     endlessScroll:true
-   
+     loadMore:true
   });
     
 }
@@ -446,7 +449,16 @@ function onDeviceReady() {
 
 
  function getAllSessions() {
-            allSessionData.fetch();
+
+     var listView = $("#sessionsView").data("kendoMobileListView");
+     if(listView)listView.destroy();
+     $("#sessionsView").kendoMobileListView({
+         dataSource: allSessionData,
+         template:$("#sessionsTemplate").text(),
+         style:"inset",
+         loadMore:true
+     })
+            //allSessionData.fetch();
              
  };
 
@@ -509,10 +521,11 @@ function sessionDetailsShow(e)
             sessionDetailsData.fetch(function() {
             item = sessionDetailsData.at(0);
            
-         
-            view.scrollerContent.html(template(item));
-            kendo.mobile.init(view.content);
-            
+                var template = kendo.template($("#sessionDetailsTemplate").text());
+                view.scrollerContent.html(template(item));
+                kendo.mobile.init(view.content);
+               
+                                
                      if (localStorage.myagenda) 
                         { 
                              
@@ -992,4 +1005,32 @@ function SetRating(v, d)
 {
     currentRating=v;
     $("#rating-value").text(ratingText[v-1]);
+}
+
+function getSpeakers()
+{
+    
+     var listview = $("#speakersView").data("kendoMobileListView");
+    if(listview)listview.destroy();
+    $("#speakersView").kendoMobileListView({
+        dataSource:speakerData,
+        template:$("#speakersbySessionTemplate").html(),
+        style:"inset",
+        loadMore:true,
+        click:displaysessionsbyspeaker
+    })
+}
+
+function getSpeakersList()
+{
+
+     var listview = $("#speakersList").data("kendoMobileListView");
+    if(listview)listview.destroy();
+    $("#speakersList").kendoMobileListView({
+        dataSource:speakerData,
+        template:$("#speakersTemplate").html(),
+        style:"inset",
+        loadMore:true,
+        click:displaysessionsbyspeaker
+    })
 }

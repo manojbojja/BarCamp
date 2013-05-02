@@ -53,13 +53,7 @@
     
     <!-- Sessions >> Speakers View -->
 	<div data-role="view" id="sessionbyspeaker" data-title="Speakers" data-show="getSpeakers" data-layout="app-layout">
-		<ul id="speakersView"
-			data-template="speakersbySessionTemplate"
-			data-source="speakerData"
-			data-endlessScroll="true"
-			data-role="listview"
-			data-style="inset"
-			data-click="displaysessionsbyspeaker">
+		<ul id="speakersView">
 		</ul>
 	</div>
     
@@ -81,7 +75,8 @@
 			data-endlessScroll="true" 
 			data-template="sessionsTemplate"
 			data-role="listview"
-			data-style="inset">
+			data-style="inset"
+            data-loadMore="true">
 
 		</ul>
 	</div>
@@ -97,7 +92,7 @@
             <span class="session-time">
                 <!-- 19800000 is the difference in ticks or ms between IST and GMT.To display date/time in IST substracting this number.  -->
 				#var a = parseInt(Session.SessionTimeSlot.FromTime.replace("/Date(", "").replace(")/", ""), 10) - 19800000 #
-				#=  kendo.toString(new Date(a), "g")#
+				#=  kendo.toString(new Date(parseInt(Session.SessionTimeSlot.FromTime.replace("/Date(", "").replace(")/", ""), 10)), "g")#
             </span>
                 
         </a>       
@@ -106,7 +101,7 @@
 
 	<!-- Session Details View -->
 	<div data-role="view" id="sessionDetails" data-show="sessionDetailsShow" data-layout="mobile-tabstrip-addtofav">
-
+       
 	</div>
     
     <!-- Sessions >> Tracks View -->
@@ -173,13 +168,8 @@
     <!-- ######################### -->
     <!-- Speakers View ########### -->
     
-	<div data-role="view" id="speakers" data-title="Speakers" data-show="getSpeakers" data-layout="app-layout">
-		<ul id="speakersView"
-			data-template="speakersTemplate"
-			data-source="speakerData"
-			data-endlessScroll="true"
-			data-role="listview"
-			data-style="inset">
+	<div data-role="view" id="speakers" data-title="Speakers" data-show="getSpeakersList" data-layout="app-layout">
+		<ul id="speakersList">
 		</ul>
 	</div>
 
