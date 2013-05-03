@@ -25,6 +25,13 @@
     <!-- Home View ############### -->
     
     <div data-role="view" id="home" data-title="GIDS 2013" data-layout="app-layout" data-show="OnHomeViewLoad">
+        <header data-role="header">
+			<div data-role="navbar">
+				<!-- <a data-role="backbutton" data-align="left">Back</a> -->
+                <a data-role="button" href="#meView" data-align="right" data-icon="info"></a>
+				<span data-role="view-title"></span>
+			</div>
+		</header>
 		<div data-role="content" id="home-content">
             <div id="logo"></div>
             <p>Join GIDS 2013 edition for cutting-edge content that will squarely put you ahead of the pack.</p>
@@ -451,8 +458,8 @@
                 <li>Speaker Bio
                     <ul>
                         <li id="speakerInfo">
-                            
-                            <p>
+                            <p>#= Comments #</p>
+                            <!-- <p>
                                 #= FirstName#
                 				works for  #= Company.CompanyName # as 
                 				#=Designation.DesignationName#
@@ -460,7 +467,7 @@
                             </p>
                             <p>
             				    #= FirstName# lives in #= City.CityName # , #= Country.CountryName #
-                            </p>
+                            </p>-->
             
                         </li>
                     </ul>
