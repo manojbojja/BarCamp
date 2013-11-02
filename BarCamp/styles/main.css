@@ -17,9 +17,9 @@
 }
 
 .submit-button {
-    display: block;
+    display: inline;
     width: 50%;
-    margin: 15pt auto 5pt auto;
+    margin: 15pt 0 25pt 15pt;
     text-align: center;
 }
 #usersettings-form-status {

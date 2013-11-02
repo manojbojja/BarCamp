@@ -1,7 +1,108 @@
 // JavaScript Document
 
+//This is your Everlive API key.
+var everliveApiKey = '5f0sWWU4qXXMHZTj';
+
+//This is your Android project number. It is required by Google in order to enable push notifications for your app. You do not need it for iPhone.
+var androidProjectNumber = '200753105606';
+
+//Set this to true in order to test push notifications in the emulator. Note, that you will not be able to actually receive 
+//push notifications because we will generate fake push tokens. But you will be able to test your other push-related functionality without getting errors.
+//var emulatorMode = false;
+
+
+
+
+// PhoneGap is ready
+function onDeviceReady() {
+    //getLocation();
+}
+
 // Wait for PhoneGap to load
 document.addEventListener("deviceready", onDeviceReady, false);
+
+
+
+
+var el = new Everlive({
+        apiKey: everliveApiKey
+    });
+
+
+
+
+var app = new kendo.mobile.Application(document.body, { transition: "slide", layout: "mobile-tabstrip",initial:"home" });
+
+var onAndroidPushReceived = function(args) {
+    alert('Android notification received: '+ JSON.stringify(args));
+    //alert(obj.message);
+};
+        
+var onIosPushReceived = function(args) {
+    alert('Android notification received: ' + JSON.stringify(args)); 
+};
+
+var enablePushNotifications = function () {
+    var pushSettings = {
+                android: {
+                    senderID: androidProjectNumber
+                },
+                iOS: {
+                    badge: "true",
+                    sound: "true",
+                    alert: "true"
+                },
+                notificationCallbackAndroid : onAndroidPushReceived,
+                notificationCallbackIOS: onIosPushReceived
+            }
+    var currentDevice = el.push.currentDevice();
+    alert("checking");
+    currentDevice.enableNotifications(pushSettings)
+    .then(
+        function(initResult) {
+            //alert(initResult);
+            //$("#tokenLink").attr('href', 'mailto:test@example.com?subject=Push Token&body=' + initResult.token);
+            alert("Checking registration status...");
+            return currentDevice.getRegistration();
+        },
+        function(err) {
+            alert("ERROR!<br /><br />An error occured while initializing the device for push notifications.<br/><br/>" + err.message);
+        }
+        ).then(
+            function(registration) {
+                if (registration.result) {
+                    alert("registered");
+                    //_onDeviceIsRegistered();
+                }
+                else {
+                    alert("registering");
+                    registerInEverlive();
+                    //_onDeviceIsNotRegistered();
+                }
+            },
+            function(err) {
+                alert("ERROR!<br /><br />An error occured while checking device r egistration status: <br/><br/>" + err.message);
+            }
+            );
+};
+
+
+
+var registerInEverlive = function() {
+            alert(el.push.currentDevice().pushToken);
+            var currentDevice = el.push.currentDevice();
+            if (!currentDevice.pushToken) currentDevice.pushToken = "some token";
+            el.push.currentDevice()
+                .register({ Age: 15 })
+                .then(
+                    alert("registered"),
+                    function(err) {
+                        alert('REGIST ER ERROR: ' + JSON.stringify(err));
+                    }
+                );
+        };
+
+
 
  var speakerDetailsData;
 //var baseURL = "http://pugdevconservice.telerikindia.com/EventNetworkingService.svc";
@@ -68,6 +169,59 @@ function showTweets(e) {
         });
     
 }
+
+
+//////////////////////////fblogin///////////////////////////////	
+
+	var facebook = new IdentityProvider({
+		name: "Facebook",
+		loginMethodName: "loginWithFacebook",
+		endpoint: "https://www.facebook.com/dialog/oauth",
+		response_type:"token",
+		client_id: "174470012758316", //Put your Facebook client id here
+		redirect_uri:"https://www.facebook.com/connect/login_success.html",
+		access_type:"online",
+		scope:"email",
+		display: "touch"
+	});
+
+
+
+function loginWithFacebook() {
+			app.showLoading();
+			facebook.getAccessToken(function(token) {
+				el.Users.loginWithFacebook(token)
+				.then(function (initresult) {
+                    return initresult;
+				})
+				.then(function (initresult) {
+                    $("#modalview-usersettings").data("kendoMobileModalView").close();
+					app.hideLoading();
+				})
+				.then(null, function (err) {
+					app.hideLoading();
+					if (err.code = 214) {
+                        showError("The specified identity provider is not enabled in the backend portal.");
+					}
+					else {
+						showError(err.message);
+					}
+				});
+			})
+    
+		}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         var speakerData = new kendo.data.DataSource(
@@ -187,10 +341,6 @@ var trackSessionData = new kendo.data.DataSource(
                                                          batch: false
                 });
 
-// PhoneGap is ready
-function onDeviceReady() {
-    //getLocation();
-}
 
 
 function showMe(e)
